@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tme_ard_v2/app_theme.dart';
 import 'dart:async';
 
 
@@ -7,23 +8,19 @@ import 'package:url_launcher/url_launcher.dart';
 class IntroToTME extends StatelessWidget {
   const IntroToTME({Key key}) : super(key: key);
 
-  _launchURL() async {
-  const url = 'https://www.tmeeducation.com';
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
-  }
-}
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: AppBar(),
+      backgroundColor: AppTheme.chipBackground,
+      appBar: AppBar(
+        backgroundColor: AppTheme.chipBackground,
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.teal),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            SizedBox(height: 30,),
+            SizedBox(height: 20,),
             Card(
               color: Colors.teal,
               elevation: 6,
@@ -189,35 +186,140 @@ class IntroToTME extends StatelessWidget {
             ),
 
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+              padding: const EdgeInsets.symmetric( horizontal: 30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(" * Simple, single-colour LED (LED1 - D13).",
+                  Text(" * Simple, single-colour LED (D13).",
                   textAlign: TextAlign.left,
                   ),
-                  Text(" * Simple, three-colour (RGB) LED (LED2 - D9, D10, D11).",
+                  Text(" * Simple, three-colour (RGB) LED ( D9 - D11).",
                   textAlign: TextAlign.left,
                   ),
-                  Text(" * Digitally controlled, three-colour (RGB) LED WS2812 (LED3 - D12), ",
+                  Text(" * 7-SEG display ",
+                  textAlign: TextAlign.left,
+                  ),
+                  Text(" * 5 Addresable LED ",
                   textAlign: TextAlign.left,
                   ),
                   Text(" * Keyboard with 5 monostable buttons",
                   textAlign: TextAlign.left,
                   ),
-                  Text(" * Analog sensors:",
+                  Text(" * Potentiometer ",
                   textAlign: TextAlign.left,
                   ),
+                  Text(" * Temprature sensor ",
+                  textAlign: TextAlign.left,
+                  ),
+                  Text(" * Light dependent resistor ",
+                  textAlign: TextAlign.left,
+                  ),
+                  Text(" * Sound sensor (microphone) ",
+                  textAlign: TextAlign.left,
+                  ),
+                  Text(" * LCD display ",
+                  textAlign: TextAlign.left,
+                  ),
+
+                  Text(" * OLED Display ",
+                  textAlign: TextAlign.left,
+                  ),
+                  Text(" * Bluetooth module ",
+                  textAlign: TextAlign.left,
+                  ),
+
                 ],
+              ),
+            ),
+
+            Card(
+              color: Colors.teal,
+              elevation: 6,
+              child: Container(
+                height: 50,
+                width: double.infinity,
+                child: Center(
+                  child: Text("Safety information", 
+                  style: TextStyle(
+                    fontFamily: "Quicksand", 
+                    fontSize: 22,
+                    color: Colors.white
+                        ),
+                      ),
+                    ),
               ),
             ),
 
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              child: Text("",
+              child: Text("When operating the device, avoid direct contact with the PCB (touching electronic components and paths), because in extreme situations it may damage the board. The exception are 7 buttons and a potentiometer, which can be used in programmes loaded onto the board.",
               textAlign: TextAlign.justify,
               ),
             ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: Text("Any changes to the configuration of jumpers and connecting additional modules should be performed when the board is disconnected from power source!",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.red,
+                fontStyle: FontStyle.italic,
+                fontFamily: "Quicksand"
+              ),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              child: Text("Before turning on the board, it is also worth making sure that the plate was not accidentally placed on metal objects (e.g. on a screwdriver), which could close the signals flowing under the plate.",
+              textAlign: TextAlign.justify,
+              ),
+            ),
+
+            Card(
+              color: Colors.teal,
+              elevation: 6,
+              child: Container(
+                height: 50,
+                width: double.infinity,
+                child: Center(
+                  child: Text("Necessary software", 
+                  style: TextStyle(
+                    fontFamily: "Quicksand", 
+                    fontSize: 22,
+                    color: Colors.white
+                        ),
+                      ),
+                    ),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: Text("For programming the board you need the Arduino IDE environment, which can be downloaded for free from the project website, i.e.: https://arduino.cc. From the page navigation menu, select the \"SOFTWARE\" tab. On the newly opened page, go to the \"Download the Arduino IDE\" section and select the appropriate version for the given system from the list on the right. Then you will be asked for voluntary financial support for the project. At this stage, you can donate or download the software for free by selecting the \"JUST DOWNLOAD\" button. At this point, the installer will start downloading.",
+              textAlign: TextAlign.justify,
+              ),
+            ),
+
+            Card(
+              color: Colors.teal,
+              elevation: 6,
+              child: Container(
+                height: 50,
+                width: double.infinity,
+                child: Center(
+                  child: Text(" --- Well Done ---", 
+                  style: TextStyle(
+                    fontFamily: "Quicksand", 
+                    fontSize: 22,
+                    color: Colors.white
+                        ),
+                      ),
+                    ),
+              ),
+            ),
+
+            
 
             
           
