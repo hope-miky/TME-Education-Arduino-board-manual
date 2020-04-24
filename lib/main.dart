@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tme_ard_v2/navigation_home_screen.dart';
-import 'package:tme_ard_v2/widgets/homepage.dart';
-import './app_theme.dart';
 import 'dart:io';
 import 'package:flutter/services.dart';
-
-import 'package:tme_ard_v2/widgets/intropage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -2,6 +2,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/IntroToTME.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/componentsList.dart';
+import 'package:tme_ard_v2/widgets/listOfWidgets/libraries.dart';
 
 class HomeList {
   HomeList({
@@ -40,7 +41,7 @@ class HomeList {
 
     HomeList(
       imagePath: 'assets/images/libraries.png',
-      navigateScreen: ComponentList(),
+      navigateScreen: Libraries(),
       tittle: "Libraries"
     ),
 
