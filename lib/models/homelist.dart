@@ -1,6 +1,7 @@
 
 import 'package:flutter/widgets.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/IntroToTME.dart';
+import 'package:tme_ard_v2/widgets/listOfWidgets/coddingIntro.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/componentsList.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/libraries.dart';
 
@@ -29,7 +30,7 @@ class HomeList {
 
     HomeList(
       imagePath: 'assets/images/programming.png',
-      navigateScreen: ComponentList(),
+      navigateScreen: CoddingIntro(),
       tittle: "Codding intro"
     ),
 
