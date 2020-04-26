@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tme_ard_v2/navigation_home_screen.dart';
 import 'dart:io';
 import 'package:flutter/services.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
       systemNavigationBarIconBrightness: Brightness.dark,
     ));
     return MaterialApp(
+      navigatorKey: Get.key,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(

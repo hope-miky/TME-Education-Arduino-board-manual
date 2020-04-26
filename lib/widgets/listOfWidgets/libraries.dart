@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tme_ard_v2/widgets/reusable/animatedContainer.dart';
 
 class Libraries extends StatefulWidget {
@@ -83,7 +84,7 @@ class _LibrariesState extends State<Libraries> {
             ),
             child: IconButton(
               onPressed: (){
-                
+                Get.back();
               }, 
               icon: Icon(Icons.arrow_back, size: 20,color: Colors.white,),
               ),
