@@ -1,4 +1,6 @@
 import 'package:tme_ard_v2/widgets/homepage.dart';
+import 'package:tme_ard_v2/widgets/listOfWidgets/IntroToTME.dart';
+import 'package:tme_ard_v2/widgets/listOfWidgets/libraries.dart';
 
 import './app_theme.dart';
 import './custom_drawer/drawer_user_controller.dart';
@@ -57,7 +59,17 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
         setState(() {
           screenView =  MyHomePage();
         });
-      } else if (drawerIndex == DrawerIndex.Help) {
+      }else if (drawerIndex == DrawerIndex.Introduction) {
+        setState(() {
+          screenView = IntroToTME();
+        });
+      }else if (drawerIndex == DrawerIndex.Libraries) {
+        setState(() {
+          screenView = Libraries();
+        });
+      }
+      
+       else if (drawerIndex == DrawerIndex.Help) {
         setState(() {
           screenView = HelpScreen();
         });

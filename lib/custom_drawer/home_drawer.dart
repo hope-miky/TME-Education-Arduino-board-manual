@@ -26,6 +26,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
         index: DrawerIndex.HOME,
         labelName: 'Home',
         icon: Icon(Icons.home),
+
       ),
 
       DrawerList(
@@ -50,6 +51,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
         index: DrawerIndex.Projects,
         labelName: 'Projects',
         icon: Icon(Icons.control_point),
+      ),
+
+      DrawerList(
+        index: DrawerIndex.Libraries,
+        labelName: 'Libraries',
+        icon: Icon(Icons.library_books),
       ),
 
       DrawerList(
@@ -293,6 +300,7 @@ enum DrawerIndex {
   Introduction,
   Codding,
   Projects,
+  Libraries,
 }
 
 class DrawerList {

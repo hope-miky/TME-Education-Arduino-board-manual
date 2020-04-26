@@ -13,6 +13,13 @@ class _LibrariesState extends State<Libraries> {
   Widget build(BuildContext context) {
     final Size screensize = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.teal[50],
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: Colors.teal
+        ),
+      ),
       backgroundColor: Colors.teal[50],
       body: Stack(
         children: <Widget>[
@@ -66,29 +73,7 @@ class _LibrariesState extends State<Libraries> {
             ),
           ),
 
-          Container(
-            margin: EdgeInsets.only(top: 20),
-            width: screensize.width * 0.15,
-            height: screensize.width * 0.15,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(bottomRight: Radius.circular(40)),
-              color: Colors.teal,
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 20,
-                  color: Colors.grey,
-                  spreadRadius: 1,
-                  offset: Offset(1, 5)
-                ),
-              ]
-            ),
-            child: IconButton(
-              onPressed: (){
-                Get.back();
-              }, 
-              icon: Icon(Icons.arrow_back, size: 20,color: Colors.white,),
-              ),
-          ),
+          
 
 
         ],
