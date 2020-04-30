@@ -227,11 +227,7 @@ class HomeListView extends StatelessWidget {
                       children: <Widget>[
                         Spacer(),
                         Text(listData.tittle.toString(), 
-                        style: TextStyle(
-                        fontSize: 15,
-                        color: AppTheme.darkText,
-                        fontWeight: FontWeight.w400,
-                      ),
+                        style: AppTheme.caption,
                         )
                       ],
                     ),

@@ -56,7 +56,7 @@ class _AnimatedContainerViewState extends State<AnimatedContainerView> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(widget.tittle, style: AppTheme.body1.copyWith(
+                          child: Text(widget.tittle, textAlign: TextAlign.center, style: AppTheme.body1.copyWith(
                             fontSize: 18,
                             
                           ),),

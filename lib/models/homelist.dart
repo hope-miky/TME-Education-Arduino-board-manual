@@ -1,9 +1,11 @@
 
 import 'package:flutter/widgets.dart';
+import 'package:tme_ard_v2/help_screen.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/IntroToTME.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/coddingIntro.dart';
-import 'package:tme_ard_v2/widgets/listOfWidgets/componentsList.dart';
+import 'package:tme_ard_v2/widgets/listOfWidgets/componentsView.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/libraries.dart';
+import 'package:tme_ard_v2/widgets/listOfWidgets/projects.dart';
 
 class HomeList {
   HomeList({
@@ -24,7 +26,7 @@ class HomeList {
     ),
     HomeList(
       imagePath: 'assets/images/list.png',
-      navigateScreen: ComponentList(),
+      navigateScreen: CardScrollView(),
       tittle: "Components"
     ),
 
@@ -36,7 +38,7 @@ class HomeList {
 
     HomeList(
       imagePath: 'assets/images/projects.png',
-      navigateScreen: ComponentList(),
+      navigateScreen: ProjectsView(),
       tittle: "Projects"
     ),
 
@@ -48,7 +50,7 @@ class HomeList {
 
     HomeList(
       imagePath: 'assets/images/helpImage.png',
-      navigateScreen: ComponentList(),
+      navigateScreen: HelpScreen(),
       tittle: "Help"
     ),
 

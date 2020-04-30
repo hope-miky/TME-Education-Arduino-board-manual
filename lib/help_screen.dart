@@ -1,3 +1,6 @@
+
+import 'package:url_launcher/url_launcher.dart';
+
 import './app_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +10,12 @@ class HelpScreen extends StatefulWidget {
 }
 
 class _HelpScreenState extends State<HelpScreen> {
+
+  TextEditingController txtctr = new TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+
+  
   @override
   void initState() {
     super.initState();
@@ -20,76 +29,113 @@ class _HelpScreenState extends State<HelpScreen> {
         top: false,
         child: Scaffold(
           backgroundColor: AppTheme.nearlyWhite,
-          body: Column(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).padding.top,
-                    left: 16,
-                    right: 16),
-                child: Image.asset('assets/images/helpImage.png'),
-              ),
-              Container(
-                padding: const EdgeInsets.only(top: 8),
-                child: Text(
-                  'How can we help you?',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+          body: SingleChildScrollView(
+
+                      child: Column(
+
+              children: <Widget>[
+                SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
+                Container(
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).padding.top,
+                      left: 16,
+                      right: 16),
+                  child: Image.asset('assets/images/helpImage.png'),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Text(
+                    'How can we help you?',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.only(top: 16),
-                child: const Text(
-                  'It looks like you are experiencing problems\nwith our sign up process. We are here to\nhelp so please get in touch with us',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16,
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                  child: const Text(
+                    'It looks like you are experiencing problems\nIf your problem is regarding please contact the developer\n ad if your problem is regarding our projects or TME ARD V.2 please share it on our facebook group :)',
+                    textAlign: TextAlign.center,
+                    style: AppTheme.caption,
                   ),
                 ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Center(
+
+                Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Spacer(),
+                InkWell(
+                  onTap: () async {
+                      const url = 'https://www.tmeeducation.com';
+                      if (await canLaunch(url)) {
+                        await launch(url, forceSafariVC: false);
+                      } else {
+                        throw 'Could not launch $url';
+                      }
+                    },
+                  child: Card(
+                    color: Colors.deepOrange,
                     child: Container(
-                      width: 140,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(4.0)),
-                        boxShadow: <BoxShadow>[
-                          BoxShadow(
-                              color: Colors.grey.withOpacity(0.6),
-                              offset: const Offset(4, 4),
-                              blurRadius: 8.0),
-                        ],
-                      ),
-                      child: Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          onTap: () {},
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Text(
-                                'Chat with Us',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+                      margin: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                      child: Center(child: Text("Offcial website", style: TextStyle(color:Colors.white))),
+                    ),
+                  ),
+                ),
+
+                Spacer(),
+
+                InkWell(
+                  onTap: () async {
+                      const url = 'https://fb.com/tmeeducation';
+                      if (await canLaunch(url)) {
+                        await launch(url, forceSafariVC: false);
+                      } else {
+                        throw 'Could not launch $url';
+                      }
+                    },
+                  child: Card(
+                    color: Colors.indigoAccent,
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                      child: Center(child: Text("Offcial Facebook page", style: TextStyle(color:Colors.white),)),
+                    ),
+                  ),
+                ),
+
+                Spacer(),
+
+              ],
+            ),
+
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                  child: InkWell(
+                    onTap: () async {
+                        const url = 'hope.miky1074@gmail.com';
+                          await launch("mailto: $url");
+                      },
+                    child: Card(
+                      color: AppTheme.nearlyBlack,
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                        child: Center(child: Text("Contact the develper", style: TextStyle(color:Colors.white))),
                       ),
                     ),
                   ),
                 ),
-              )
-            ],
+
+                
+
+
+               
+
+                
+                
+                
+                
+              ],
+            ),
           ),
         ),
       ),

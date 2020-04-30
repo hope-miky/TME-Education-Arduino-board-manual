@@ -7,6 +7,14 @@ class CoddingIntro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.teal[50],
+        iconTheme: IconThemeData(
+          color: Colors.teal
+        ),
+      ),
+      backgroundColor: Colors.teal[50],
           body: SingleChildScrollView(
         child: Column(
           
@@ -16,10 +24,10 @@ class CoddingIntro extends StatelessWidget {
               color: Colors.teal,
               elevation: 6,
               child: Container(
-                height: 50,
                 width: double.infinity,
                 child: Center(
                   child: Text("Programming the educational board", 
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: "Quicksand", 
                     fontSize: 22,
@@ -60,10 +68,11 @@ class CoddingIntro extends StatelessWidget {
               color: Colors.teal,
               elevation: 6,
               child: Container(
-                height: 50,
+                
                 width: double.infinity,
                 child: Center(
                   child: Text("Comments", 
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: "Quicksand", 
                     fontSize: 22,
@@ -98,10 +107,11 @@ class CoddingIntro extends StatelessWidget {
               color: Colors.teal,
               elevation: 6,
               child: Container(
-                height: 50,
+                
                 width: double.infinity,
                 child: Center(
                   child: Text("Uploading the programme to the board", 
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: "Quicksand", 
                     fontSize: 22,

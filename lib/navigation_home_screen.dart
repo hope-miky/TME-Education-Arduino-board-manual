@@ -1,6 +1,7 @@
-import 'package:tme_ard_v2/widgets/homepage.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/IntroToTME.dart';
+import 'package:tme_ard_v2/widgets/listOfWidgets/coddingIntro.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/libraries.dart';
+import 'package:tme_ard_v2/widgets/listOfWidgets/projects.dart';
 
 import './app_theme.dart';
 import './custom_drawer/drawer_user_controller.dart';
@@ -10,7 +11,6 @@ import './help_screen.dart';
 import './home_screen.dart';
 import './invite_friend_screen.dart';
 import 'package:flutter/material.dart';
-import './widgets/homepage.dart';
 
 class NavigationHomeScreen extends StatefulWidget {
   @override
@@ -59,7 +59,13 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
         setState(() {
           screenView =  MyHomePage();
         });
-      }else if (drawerIndex == DrawerIndex.Introduction) {
+      }else if (drawerIndex == DrawerIndex.Projects) {
+        setState(() {
+          screenView = ProjectsView();
+        });
+      }
+      
+      else if (drawerIndex == DrawerIndex.Introduction) {
         setState(() {
           screenView = IntroToTME();
         });
@@ -67,13 +73,17 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
         setState(() {
           screenView = Libraries();
         });
+      }else if (drawerIndex == DrawerIndex.Codding) {
+        setState(() {
+          screenView = CoddingIntro();
+        });
       }
-      
        else if (drawerIndex == DrawerIndex.Help) {
         setState(() {
           screenView = HelpScreen();
         });
-      } else if (drawerIndex == DrawerIndex.FeedBack) {
+      }
+       else if (drawerIndex == DrawerIndex.FeedBack) {
         setState(() {
           screenView = FeedbackScreen();
         });
