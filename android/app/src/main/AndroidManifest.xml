@@ -7,7 +7,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="tme_ard_v2"
+        android:label="TME ARD V2 Manual"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
