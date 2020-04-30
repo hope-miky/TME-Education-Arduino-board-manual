@@ -33,7 +33,7 @@ class _CardScrollViewState extends State<CardScrollView> {
   final List<String> images = [
     'assets/images/comp/7seg.png',
     'assets/images/comp/adled.png',
-    'assets/images/comp/ard.png',
+    'assets/images/comp/ard2.png',
     'assets/images/comp/blue.png',
     'assets/images/comp/btn.png',
     'assets/images/comp/buzzer.png',
@@ -51,7 +51,13 @@ class _CardScrollViewState extends State<CardScrollView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("List of available peripherals"),
+        title: Row(
+          children: <Widget>[
+            Spacer(),
+            Text("List of available peripherals"),
+            Spacer(),
+          ],
+        ),
       ),
           body: SingleChildScrollView(
             child: Column(

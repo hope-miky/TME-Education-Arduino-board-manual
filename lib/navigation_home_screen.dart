@@ -1,5 +1,6 @@
 import 'package:tme_ard_v2/widgets/listOfWidgets/IntroToTME.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/coddingIntro.dart';
+import 'package:tme_ard_v2/widgets/listOfWidgets/componentsView.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/libraries.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/projects.dart';
 
@@ -81,6 +82,11 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
        else if (drawerIndex == DrawerIndex.Help) {
         setState(() {
           screenView = HelpScreen();
+        });
+      }
+      else if (drawerIndex == DrawerIndex.Components) {
+        setState(() {
+          screenView = CardScrollView();
         });
       }
        else if (drawerIndex == DrawerIndex.FeedBack) {

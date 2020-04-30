@@ -1,3 +1,5 @@
+import 'package:url_launcher/url_launcher.dart';
+
 import '../app_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -65,33 +67,33 @@ class _HomeDrawerState extends State<HomeDrawer> {
         isAssetsImage: true,
         imageName: 'assets/images/supportIcon.png',
       ),
-      DrawerList(
-        index: DrawerIndex.FeedBack,
-        labelName: 'FeedBack',
-        icon: Icon(Icons.help),
-      ),
-      DrawerList(
-        index: DrawerIndex.Invite,
-        labelName: 'Invite Friend',
-        icon: Icon(Icons.group),
-      ),
-      DrawerList(
-        index: DrawerIndex.Share,
-        labelName: 'Rate the app',
-        icon: Icon(Icons.share),
-      ),
-      DrawerList(
-        index: DrawerIndex.About,
-        labelName: 'About the developer',
-        icon: Icon(Icons.info),
-      ),
+      // DrawerList(
+      //   index: DrawerIndex.FeedBack,
+      //   labelName: 'FeedBack',
+      //   icon: Icon(Icons.help),
+      // ),
+      // DrawerList(
+      //   index: DrawerIndex.Invite,
+      //   labelName: 'Invite Friend',
+      //   icon: Icon(Icons.group),
+      // ),
+      // DrawerList(
+      //   index: DrawerIndex.Share,
+      //   labelName: 'Rate the app',
+      //   icon: Icon(Icons.share),
+      // ),
+      // DrawerList(
+      //   index: DrawerIndex.About,
+      //   labelName: 'About the developer',
+      //   icon: Icon(Icons.info),
+      // ),
     ];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.notWhite.withOpacity(0.5),
+      backgroundColor: Colors.teal[50],
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -121,7 +123,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               boxShadow: <BoxShadow>[
-                                BoxShadow(color: AppTheme.grey.withOpacity(0.6), offset: const Offset(2.0, 4.0), blurRadius: 8),
+                                BoxShadow(color: Colors.teal, offset: const Offset(2.0, 4.0), blurRadius: 8),
                               ],
                             ),
                             child: ClipRRect(
@@ -183,7 +185,14 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   textAlign: TextAlign.left,
                 ),
                 
-                onTap: () {},
+                onTap: () async {
+                        var url = 'https://tmeeducation.com/en-ZA/page/5433/about-us';
+                        if (await canLaunch(url)) {
+                          await launch(url, forceSafariVC: false);
+                        } else {
+                          throw 'Could not launch $url';
+                        }
+                      },
               ),
               SizedBox(
                 height: MediaQuery.of(context).padding.bottom,
@@ -199,7 +208,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        splashColor: Colors.grey.withOpacity(0.1),
+        splashColor: Colors.teal.withOpacity(0.7),
         highlightColor: Colors.transparent,
         onTap: () {
           navigationtoScreen(listData.index);

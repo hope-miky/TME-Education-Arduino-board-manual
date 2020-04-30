@@ -123,7 +123,7 @@ class _DrawerUserControllerState extends State<DrawerUserController> with Ticker
                   decoration: BoxDecoration(
                     color: AppTheme.white,
                     boxShadow: <BoxShadow>[
-                      BoxShadow(color: AppTheme.grey.withOpacity(0.6), blurRadius: 24),
+                      BoxShadow(color: Colors.teal.withOpacity(0.7), blurRadius: 100),
                     ],
                   ),
                   child: Stack(
