@@ -7,10 +7,8 @@ import 'package:tme_ard_v2/widgets/listOfWidgets/projects.dart';
 import './app_theme.dart';
 import './custom_drawer/drawer_user_controller.dart';
 import './custom_drawer/home_drawer.dart';
-import './feedback_screen.dart';
 import './help_screen.dart';
 import './home_screen.dart';
-import './invite_friend_screen.dart';
 import 'package:flutter/material.dart';
 
 class NavigationHomeScreen extends StatefulWidget {
@@ -89,15 +87,7 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
           screenView = CardScrollView();
         });
       }
-       else if (drawerIndex == DrawerIndex.FeedBack) {
-        setState(() {
-          screenView = FeedbackScreen();
-        });
-      } else if (drawerIndex == DrawerIndex.Invite) {
-        setState(() {
-          screenView = InviteFriend();
-        });
-      } else {
+        else {
         //do in your way......
         setState(() {
           screenView =  MyHomePage();
