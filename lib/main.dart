@@ -6,8 +6,10 @@ import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations(<DeviceOrientation>[DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
-      .then((_) => runApp(MyApp()));
+  await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown
+  ]).then((_) => runApp(MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -16,7 +18,8 @@ class MyApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Platform.isAndroid ? Brightness.dark : Brightness.light,
+      statusBarBrightness:
+          Platform.isAndroid ? Brightness.dark : Brightness.light,
       systemNavigationBarColor: Colors.white,
       systemNavigationBarDividerColor: Colors.grey,
       systemNavigationBarIconBrightness: Brightness.dark,
@@ -28,23 +31,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.teal,
         textTheme: ThemeData.light().textTheme.copyWith(
-          subtitle: TextStyle(
-            fontWeight: FontWeight.normal,
-            fontSize: 15,
-            fontFamily: 'Quicksand'
+              subtitle2: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  fontSize: 15,
+                  fontFamily: 'Quicksand'),
+              headline6: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  fontFamily: 'OpenSans'),
             ),
-
-          title: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 15,
-            fontFamily: 'OpenSans'
-            ),
-          
-          ),
-          fontFamily: 'Quicksand',
+        fontFamily: 'Quicksand',
       ),
       home: NavigationHomeScreen(),
-      
+      // home: Container(),
     );
   }
 }
