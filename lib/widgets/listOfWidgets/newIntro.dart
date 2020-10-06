@@ -45,26 +45,65 @@ class _FlightsStepperState extends State<FlightsStepper> {
                     ],
                     number: 3,
                   )
-                : Page(
-                    key: Key('page5'),
-                    onOptionSelected: () => setState(() => pageNumber = 1),
-                    question: 'Peripherals connected to the Arduino UNO:',
-                    answers: <String>[
-                      'Single-colour LED (D13).',
-                      'Three-colour (RGB) LED ( D9 - D11).',
-                      '7-SEG display',
-                      '5 Addresable LED',
-                      'Keyboard with 5 monostable buttons',
-                      'Potentiometer',
-                      'Temprature sensor',
-                      'Light dependent resistor',
-                      'Sound sensor (microphone)',
-                      'LCD display',
-                      'OLED Display',
-                      'Bluetooth module'
-                    ],
-                    number: 4,
-                  );
+                : pageNumber == 4
+                    ? Page(
+                        key: Key('page5'),
+                        onOptionSelected: () => setState(() => pageNumber = 5),
+                        question: 'Peripherals connected to the Arduino UNO:',
+                        answers: <String>[
+                          'Single-colour LED (D13).',
+                          'Three-colour (RGB) LED ( D9 - D11).',
+                          '7-SEG display',
+                          '5 Addresable LED',
+                          'Keyboard with 5 monostable buttons',
+                          'Potentiometer',
+                        ],
+                        number: 4,
+                      )
+                    : pageNumber == 5
+                        ? Page(
+                            key: Key('page6'),
+                            onOptionSelected: () =>
+                                setState(() => pageNumber = 6),
+                            question:
+                                'Peripherals connected to the Arduino UNO:',
+                            answers: <String>[
+                              'Temprature sensor',
+                              'Light dependent resistor',
+                              'Sound sensor (microphone)',
+                              'LCD display',
+                              'OLED Display',
+                              'Bluetooth module'
+                            ],
+                            number: 5,
+                          )
+                        : pageNumber == 6
+                            ? Page(
+                                key: Key('page8'),
+                                onOptionSelected: () =>
+                                    setState(() => pageNumber = 7),
+                                question: 'Safety information',
+                                answers: <String>[
+                                  'When operating the device, avoid direct contact with the PCB (touching electronic components and paths), because in extreme situations it may damage the board.',
+                                  'The exception are 7 buttons and a potentiometer, which can be used in programmes loaded onto the board.',
+                                  'Any changes to the configuration of jumpers and connecting additional modules should be performed when the board is disconnected from power source!',
+                                  'Before turning on the board, it is also worth making sure that the plate was not accidentally placed on metal objects (e.g. on a screwdriver), which could close the signals flowing under the plate.'
+                                ],
+                                number: 6,
+                              )
+                            : Page(
+                                key: Key('page9'),
+                                onOptionSelected: () =>
+                                    setState(() => pageNumber = 1),
+                                question: 'Necessary software',
+                                answers: <String>[
+                                  'For programming the board you need the Arduino IDE environment, which can be downloaded for free from the project website, i.e.: https://arduino.cc.',
+                                  'From the page navigation menu, select the \"SOFTWARE\" tab.',
+                                  'On the newly opened page, go to the \"Download the Arduino IDE\" section and select the appropriate version for the given system from the list on the right.',
+                                  'Then you will be asked for voluntary financial support for the project. At this stage, you can donate or download the software for free by selecting the \"JUST DOWNLOAD\" button. At this point, the installer will start downloading.',
+                                ],
+                                number: 7,
+                              );
     return Scaffold(
       body: Container(
         width: double.infinity,
