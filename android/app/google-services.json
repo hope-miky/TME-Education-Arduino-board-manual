@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "920275660529",
+    "firebase_url": "https://tmeardumanual.firebaseio.com",
+    "project_id": "tmeardumanual",
+    "storage_bucket": "tmeardumanual.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:920275660529:android:b46d27bf3bdf9dae5f8350",
+        "android_client_info": {
+          "package_name": "tesfamichael.molla.tme_ard_v2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "920275660529-rkf8l3421j61so7krsru2urg2tge4mcn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArJlEg1P_6KKqZYSltsMYuJKtmbp8WS8A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "920275660529-rkf8l3421j61so7krsru2urg2tge4mcn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

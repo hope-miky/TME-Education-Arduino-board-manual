@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:tme_ard_v2/help_screen.dart';
+import 'package:tme_ard_v2/widgets/Planning/PlannedtripsList.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/IntroToTME.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/coddingIntro.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/componentsView.dart';
@@ -28,6 +29,10 @@ class HomeList {
         imagePath: 'assets/images/programming.png',
         navigateScreen: CoddingIntro(),
         tittle: "Codding intro"),
+    HomeList(
+        imagePath: 'assets/images/feedbackImage.png',
+        navigateScreen: PlannedTripsList(),
+        tittle: "Planned Trips"),
     HomeList(
         imagePath: 'assets/images/projects.png',
         navigateScreen: ProjectsView(),
