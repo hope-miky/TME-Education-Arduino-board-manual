@@ -2,11 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 // Import the firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
+import 'package:tme_ard_v2/widgets/Planning/plannedTripscontent.dart';
 import 'package:tme_ard_v2/widgets/Planning/planningDraggableSheet.dart';
+import 'package:tme_ard_v2/widgets/registration/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class PlannedTripsList extends StatefulWidget {
-  PlannedTripsList({Key key}) : super(key: key);
-
   @override
   _PlannedTripsListState createState() => _PlannedTripsListState();
 }
@@ -14,6 +15,7 @@ class PlannedTripsList extends StatefulWidget {
 class _PlannedTripsListState extends State<PlannedTripsList> {
   bool _initialized = false;
   bool _error = false;
+  bool loading = false;
 
   // Define an async function to initialize FlutterFire
   void initializeFlutterFire() async {
@@ -39,6 +41,32 @@ class _PlannedTripsListState extends State<PlannedTripsList> {
 
   @override
   Widget build(BuildContext context) {
+    Size screen = MediaQuery.of(context).size;
+    void showLoginDialog() async {
+      await showGeneralDialog(
+        context: context,
+        barrierLabel: "Barrier",
+        barrierDismissible: true,
+        barrierColor: Colors.black.withOpacity(0.5),
+        transitionDuration: Duration(milliseconds: 700),
+        pageBuilder: (_, __, ___) {
+          return Align(
+            alignment: Alignment.center,
+            child: LoginPage(
+              screen: screen,
+            ),
+          );
+        },
+        transitionBuilder: (_, anim, __, child) {
+          return SlideTransition(
+            position:
+                Tween(begin: Offset(0, 1), end: Offset(0, 0)).animate(anim),
+            child: child,
+          );
+        },
+      ).then((value) {});
+    }
+
     if (_error) {
       return Scaffold(
         body: Center(
@@ -58,50 +86,29 @@ class _PlannedTripsListState extends State<PlannedTripsList> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Planned List"),
+        backgroundColor: Colors.white24,
+        elevation: 0,
+        title: Text(
+          "Planned List",
+          style: TextStyle(color: Colors.teal),
+        ),
+        actions: [
+          FlatButton.icon(
+            onPressed: () => showLoginDialog(),
+            icon: Icon(
+              Icons.login,
+              color: Colors.amber[700],
+            ),
+            label: Text(
+              "Login",
+              style: TextStyle(color: Colors.amber[700]),
+            ),
+          )
+        ],
       ),
       body: Stack(
-        children: [UserInformation(), PlanningDraggableSheet()],
+        children: [PlannedListContent(), PlanningDraggableSheet()],
       ),
-    );
-  }
-}
-
-class UserInformation extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    CollectionReference users =
-        FirebaseFirestore.instance.collection('plannedtrip');
-
-    return StreamBuilder<QuerySnapshot>(
-      stream: users.snapshots(includeMetadataChanges: true),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text('Something went wrong');
-        }
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
-        }
-
-        return new ListView(
-          children: snapshot.data.docs.map((DocumentSnapshot document) {
-            return new ListTile(
-              title: new Text(document.data()['tittle']),
-              subtitle: new Text(
-                  document.data()['from'] + " - " + document.data()['to']),
-              leading: Container(
-                padding: EdgeInsets.all(8),
-                child: Icon(Icons.event),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.teal)),
-              ),
-              trailing: Text(document.data()['location']),
-            );
-          }).toList(),
-        );
-      },
     );
   }
 }
