@@ -23,6 +23,20 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
+  void checkCheckAndLogin() async {
+    if (auth.currentUser != null) {
+      print(auth.currentUser.uid);
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => AmbassadorDashboard(
+                    userid: auth.currentUser.uid,
+                  )));
+    } else {
+      await login();
+    }
+  }
+
   void signOut() async {
     await FirebaseAuth.instance.signOut();
   }
@@ -146,8 +160,7 @@ class _LoginPageState extends State<LoginPage> {
                                     BorderRadius.all(Radius.circular(50))),
                             color: Colors.teal[300],
                             onPressed: () async {
-                              // setLoading(!loading);
-                              await login();
+                              checkCheckAndLogin();
                             },
                             child: !loading
                                 ? Text(
