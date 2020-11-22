@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisteredUsersList extends StatefulWidget {
   @override
@@ -7,15 +8,18 @@ class RegisteredUsersList extends StatefulWidget {
 }
 
 class _RegisteredUsersListState extends State<RegisteredUsersList> {
-  CollectionReference users =
-      FirebaseFirestore.instance.collection('registration');
+  var users = FirebaseFirestore.instance
+      .collection('registration')
+      .where("for",
+          isEqualTo: FirebaseAuth.instance.currentUser.email.toString())
+      .snapshots(includeMetadataChanges: true);
 
   @override
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
     return Container(
       child: StreamBuilder<QuerySnapshot>(
-        stream: users.snapshots(includeMetadataChanges: true),
+        stream: users,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Text('Something went wrong');
