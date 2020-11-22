@@ -1,11 +1,11 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tme_ard_v2/app_theme.dart';
 import 'package:tme_ard_v2/widgets/ambassador/adminPlannedLists.dart';
 import 'package:tme_ard_v2/widgets/ambassador/registeredUsersList.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'addplan.dart';
+import './ambassadorprofile.dart';
 
 class AmbassadorDashboard extends StatefulWidget {
   AmbassadorDashboard();
@@ -15,9 +15,6 @@ class AmbassadorDashboard extends StatefulWidget {
 }
 
 class _AmbassadorDashboardState extends State<AmbassadorDashboard> {
-  var users = FirebaseFirestore.instance
-      .collection('users')
-      .doc(FirebaseAuth.instance.currentUser.email.toString());
   int index = 0;
   FirebaseAuth auth;
   var user = FirebaseAuth.instance.currentUser;
@@ -81,32 +78,7 @@ class _AmbassadorDashboardState extends State<AmbassadorDashboard> {
               ),
               RegisteredUsersList(),
               AdminPlannedList(),
-              Container(
-                color: Colors.blue,
-                child: StreamBuilder<DocumentSnapshot>(
-                  stream: users.snapshots(includeMetadataChanges: true),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<DocumentSnapshot> snapshot) {
-                    if (snapshot.hasError) {
-                      return Text('Something went wrong');
-                    }
-
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
-                          child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          CircularProgressIndicator(),
-                          Text("Loading"),
-                        ],
-                      ));
-                    }
-
-                    return Text(snapshot.data["fullname"]);
-                  },
-                ),
-              ),
+              AmbassadorProfile()
             ],
           ),
         ),
