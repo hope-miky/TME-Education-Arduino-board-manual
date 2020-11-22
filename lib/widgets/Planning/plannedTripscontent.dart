@@ -22,8 +22,7 @@ class PlannedListContent extends StatelessWidget {
           children: snapshot.data.docs.map((DocumentSnapshot document) {
             return new ListTile(
               title: new Text(document.data()['tittle']),
-              subtitle: new Text(
-                  document.data()['from'] + " - " + document.data()['to']),
+              subtitle: new Text("On " + document.data()['from'].toString()),
               leading: Container(
                 padding: EdgeInsets.all(8),
                 child: Icon(Icons.event),

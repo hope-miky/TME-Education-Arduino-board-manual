@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:country_picker/country_picker.dart';
 
 class AddPlan extends StatefulWidget {
   final screen;
@@ -9,6 +11,34 @@ class AddPlan extends StatefulWidget {
 }
 
 class _AddPlanState extends State<AddPlan> {
+  DateTime from;
+  DateTime to;
+  var country;
+
+  TextEditingController _tittle = new TextEditingController();
+  TextEditingController _location = new TextEditingController();
+  TextEditingController _description = new TextEditingController();
+
+  final snackBar = SnackBar(content: Text('Yay! Successfully created a plan!'));
+  final errsnackBar =
+      SnackBar(content: Text('Oops! Error ocured please try again'));
+
+  CollectionReference _plannedtrips =
+      FirebaseFirestore.instance.collection('plannedtrip');
+
+  Future<void> addPlan() {
+    return _plannedtrips.add({
+      'tittle': _tittle.text,
+      'location': _location.text,
+      'description': _description.text,
+      'from': from.toString().split(" ")[0],
+      'to': to.toString().split(" ")[0],
+      'country': country.countryCode + ": " + country.name
+    }).then((value) {
+      Scaffold.of(context).showSnackBar(snackBar);
+    }).catchError((error) => Scaffold.of(context).showSnackBar(errsnackBar));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,23 +49,51 @@ class _AddPlanState extends State<AddPlan> {
         body: Container(
           color: Colors.white,
           margin: EdgeInsets.symmetric(horizontal: 20),
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
           child: SingleChildScrollView(
             child: Column(
               children: [
+                Divider(),
                 Center(child: Text("Add a plan")),
+                Divider(),
                 TextField(
+                  controller: _tittle,
                   decoration: InputDecoration(labelText: "Tittle"),
+                ),
+                FlatButton(
+                  onPressed: () async {
+                    showCountryPicker(
+                      context: context,
+                      showPhoneCode:
+                          true, // optional. Shows phone code before the country name.
+                      onSelect: (Country cou) {
+                        setState(() {
+                          country = cou;
+                        });
+                      },
+                    );
+                  },
+                  child: Text(
+                    country != null
+                        ? "Country = " +
+                            country.countryCode +
+                            ": " +
+                            country.name
+                        : "pick country",
+                    style: TextStyle(color: Colors.teal[400]),
+                  ),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 10),
                   child: TextField(
+                    controller: _location,
                     decoration: InputDecoration(labelText: "Location"),
                   ),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 30),
                   child: TextField(
+                    controller: _description,
                     decoration: InputDecoration(
                       labelText: "Description",
                       focusedBorder: OutlineInputBorder(
@@ -51,29 +109,46 @@ class _AddPlanState extends State<AddPlan> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    RaisedButton(
+                    FlatButton(
                       onPressed: () async {
-                        await showDatePicker(
+                        from = await showDatePicker(
                           initialDate: DateTime.now(),
                           context: context,
                           firstDate: DateTime(2000),
                           lastDate: DateTime(2255),
                         );
+                        setState(() {});
                       },
-                      child: Text("From"),
+                      child: Text(
+                        from != null
+                            ? "From = " + from.toString().split(" ")[0]
+                            : "pick start date",
+                        style: TextStyle(color: Colors.teal[400]),
+                      ),
                     ),
-                    RaisedButton(
+                    FlatButton(
                       onPressed: () async {
-                        await showDatePicker(
+                        to = await showDatePicker(
                           initialDate: DateTime.now(),
                           context: context,
                           firstDate: DateTime(2000),
                           lastDate: DateTime(2255),
                         );
+                        setState(() {});
                       },
-                      child: Text("To"),
+                      child: Text(
+                        to != null
+                            ? "To = " + to.toString().split(" ")[0]
+                            : "pick final date",
+                        style: TextStyle(color: Colors.amber[700]),
+                      ),
                     ),
                   ],
+                ),
+                OutlinedButton.icon(
+                  onPressed: addPlan,
+                  icon: Icon(Icons.next_plan),
+                  label: Text("Register Plan"),
                 )
               ],
             ),
