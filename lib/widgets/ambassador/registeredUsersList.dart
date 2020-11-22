@@ -45,7 +45,8 @@ class _RegisteredUsersListState extends State<RegisteredUsersList> {
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("On " + document.data()['phonenumber'].toString()),
+                        Text("phone: " +
+                            document.data()['phonenumber'].toString()),
                       ],
                     ),
                     leading: Container(

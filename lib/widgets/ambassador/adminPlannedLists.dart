@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AdminPlannedList extends StatefulWidget {
   @override
@@ -7,15 +8,27 @@ class AdminPlannedList extends StatefulWidget {
 }
 
 class _AdminPlannedListState extends State<AdminPlannedList> {
-  CollectionReference users =
-      FirebaseFirestore.instance.collection('plannedtrip');
+  var users = FirebaseFirestore.instance
+      .collection('plannedtrip')
+      .where("by",
+          isEqualTo: FirebaseAuth.instance.currentUser.email.toString())
+      .snapshots(includeMetadataChanges: true);
+  CollectionReference profile;
+  FirebaseAuth auth;
+
+  @override
+  void initState() {
+    super.initState();
+
+    profile = FirebaseFirestore.instance.collection('users');
+  }
 
   @override
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
     return Container(
       child: StreamBuilder<QuerySnapshot>(
-        stream: users.snapshots(includeMetadataChanges: true),
+        stream: users,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Text('Something went wrong');

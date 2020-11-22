@@ -26,12 +26,8 @@ class _LoginPageState extends State<LoginPage> {
   void checkCheckAndLogin() async {
     if (auth.currentUser != null) {
       print(auth.currentUser.uid);
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => AmbassadorDashboard(
-                    userid: auth.currentUser.uid,
-                  )));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => AmbassadorDashboard()));
     } else {
       await login();
     }
