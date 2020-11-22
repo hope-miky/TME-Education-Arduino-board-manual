@@ -8,7 +8,7 @@ class RegisteredUsersList extends StatefulWidget {
 
 class _RegisteredUsersListState extends State<RegisteredUsersList> {
   CollectionReference users =
-      FirebaseFirestore.instance.collection('plannedtrip');
+      FirebaseFirestore.instance.collection('registration');
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +41,11 @@ class _RegisteredUsersListState extends State<RegisteredUsersList> {
                 child: Card(
                   elevation: 5,
                   child: new ExpansionTile(
-                    title: new Text(document.data()['tittle']),
+                    title: new Text(document.data()['fullname']),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("On " + document.data()['from'].toString()),
-                        Text(" Place: " + document.data()['location']),
+                        Text("On " + document.data()['phonenumber'].toString()),
                       ],
                     ),
                     leading: Container(
@@ -56,7 +55,15 @@ class _RegisteredUsersListState extends State<RegisteredUsersList> {
                           shape: BoxShape.circle,
                           border: Border.all(color: Colors.teal)),
                     ),
-                    children: [Text(document.data()['description'].toString())],
+                    children: [
+                      Text(" Country:  " +
+                          document.data()['country'].toString()),
+                      Text(" City:  " + document.data()['city'].toString()),
+                      Text(" Age:  " + document.data()['age'].toString()),
+                      SizedBox(
+                        height: 10,
+                      )
+                    ],
                   ),
                 ),
               );

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class PlanningDraggableSheet extends StatefulWidget {
@@ -13,6 +14,38 @@ class _PlanningDraggableSheetState extends State<PlanningDraggableSheet> {
   TextEditingController _citytextcontroller = new TextEditingController();
   String edustagedropdown;
   String country;
+
+  CollectionReference _plannedtrips =
+      FirebaseFirestore.instance.collection('registration');
+  final snackBar = SnackBar(
+      backgroundColor: Colors.green,
+      content: Text(
+          'Yay! you have been registered Successfully, We will call as soon as we planned to come to your city!'));
+  final errsnackBar = SnackBar(
+      backgroundColor: Colors.red,
+      content: Text(
+        'Oops! Error ocured please try again',
+      ));
+
+  Future register() async {
+    _plannedtrips.add({
+      'fullname': _fullnametextcontroller.text,
+      'age': _agetextcontroller.text,
+      'phonenumber': _phonenumbertextcontroller.text,
+      'educationlevel': edustagedropdown,
+      'country': country,
+      'city': _citytextcontroller.text,
+    }).then((value) {
+      Scaffold.of(context).showSnackBar(snackBar);
+      setState(() {
+        _fullnametextcontroller.text = "";
+        _agetextcontroller.text = "";
+        _phonenumbertextcontroller.text = "";
+        _citytextcontroller.text = "";
+      });
+    }).catchError((error) => Scaffold.of(context).showSnackBar(errsnackBar));
+  }
+
   @override
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
@@ -69,7 +102,7 @@ class _PlanningDraggableSheetState extends State<PlanningDraggableSheet> {
                       icon: Icon(Icons.assignment_ind_outlined)),
                 ),
                 TextField(
-                  controller: _agetextcontroller,
+                  controller: _phonenumbertextcontroller,
                   decoration: InputDecoration(
                       icon: Icon(Icons.phone),
                       hintText: "Phone Number",
@@ -112,7 +145,7 @@ class _PlanningDraggableSheetState extends State<PlanningDraggableSheet> {
                   padding: const EdgeInsets.all(15.0),
                   child: RaisedButton(
                     color: Colors.teal,
-                    onPressed: () {},
+                    onPressed: register,
                     child: Text(
                       "Register",
                       style: TextStyle(color: Colors.white),
