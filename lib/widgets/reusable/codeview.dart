@@ -75,7 +75,7 @@ class _CodeViewState extends State<CodeView>
             theme: theme,
             padding: EdgeInsets.all(12),
             textStyle: TextStyle(
-              fontSize: 16,
+              fontSize: 12,
             ),
           ),
         ),

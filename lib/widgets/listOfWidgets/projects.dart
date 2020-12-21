@@ -481,8 +481,8 @@ class _ProjectsViewState extends State<ProjectsView> {
       "fetured": false,
       "code": [
         {
-          "code": ProjectCodes.mic_speacker,
-          "name": "MICROPHONE-SPEAKER.ino"
+          "code": ProjectCodes.oled_graphics,
+          "name": "Oled-Graphics.ino"
         },
         {
           "code": ProjectCodes.intro,
@@ -497,32 +497,74 @@ class _ProjectsViewState extends State<ProjectsView> {
       "by": "TME Education",
       "subtittle": "Working with diffrent shapes in OLED",
       "category": ["all", "oled", "advanced"],
-      "link": "https://github.com/Tesfamichael1074/TME-EDU-ARD-2-examples/tree/master/Oled-Graphics"
+      "link": "https://github.com/tmeeducation/TME-EDU-ARD-2-examples/tree/master/Oled-Graphics"
     },
 
     {
       "tittle": "Paint",
       "fetured": false,
+      "code": [
+        {
+          "code": ProjectCodes.paint,
+          "name": "Paint.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/art-1851483_640.jpg",
       "by": "TME Education",
       "subtittle": "Building a paint device using OLED display",
       "category": ["all", "btn", "lcd", "oled", "pot", "advanced"],
-      "link": "https://github.com/Tesfamichael1074/TME-EDU-ARD-2-examples/tree/master/Paint"
+      "link": "https://github.com/tmeeducation/TME-EDU-ARD-2-examples/blob/master/Paint"
     },
 
     {
       "tittle": "Pong game",
       "fetured": true,
+      "code": [
+        {
+          "code": ProjectCodes.pong_game,
+          "name": "Pong_Game.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/sport-3097621_640.jpg",
       "by": "TME Education",
       "subtittle": "Building a pong game using some push buttons and OLED display.",
       "category": ["all", "pot", "lcd", "advanced", "game"],
-      "link": "https://github.com/Tesfamichael1074/TME-EDU-ARD-2-examples/tree/master/Pong_Game"
+      "link": "https://github.com/tmeeducation/TME-EDU-ARD-2-examples/blob/master/Pong_Game"
     },
 
     {
       "tittle": "RGB Show",
       "fetured": false,
+      "code": [
+        {
+          "code": ProjectCodes.rgb_show,
+          "name": "RGB_show.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/arduino-1080213_640.jpg",
       "by": "TME Education",
       "subtittle": "Displaying diffrent colors using RGB LED",
@@ -533,36 +575,85 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Random number",
       "fetured": false,
+      "code": [
+        {
+          "code": ProjectCodes.rand_num,
+          "name": "RandomNumbers.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/seven-segment-957235_640.jpg",
       "by": "TME Education",
       "subtittle": "Displaying random numbers using 7-SEG and OLED display",
       "category": ["all", "oled", "7seg", "pot", "advanced"],
-      "link": "https://github.com/Tesfamichael1074/TME-EDU-ARD-2-examples/tree/master/RandomNumbers"
+      "link": "https://github.com/tmeeducation/TME-EDU-ARD-2-examples/blob/master/RandomNumbers"
     },
 
     {
       "tittle": "Snake game",
       "fetured": true,
+      "code": [
+        {
+          "code": ProjectCodes.snake_game,
+          "name": "Snake.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/iphone-472197_640.jpg",
       "by": "TME Education",
       "subtittle": "Building a sanke game using OLED Display",
       "category": ["all", "pot", "game", "btn", "advanced"],
-      "link": "https://github.com/Tesfamichael1074/TME-EDU-ARD-2-examples/tree/master/Snake"
+      "link": "https://github.com/tmeeducation/TME-EDU-ARD-2-examples/blob/master/Snake"
     },
 
     {
       "tittle": "Thermometer LCD",
       "fetured": false,
+      "code": [
+        {
+          "code": ProjectCodes.thermometer_lcd,
+          "name": "THERMOMETER-LCD.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/thermometer-693852_640.jpg",
       "by": "TME Education",
       "subtittle": "Working with Temprature sensor and LCD display",
       "category": ["all", "sensor", "lcd", "advanced"],
-      "link": "https://github.com/Tesfamichael1074/TME-EDU-ARD-2-examples/tree/master/THERMOMETER-LCD"
+      "link": "https://github.com/tmeeducation/TME-EDU-ARD-2-examples/tree/master/THERMOMETER-LCD"
     },
 
     {
       "tittle": "TME Arduino Demo",
       "fetured": true,
+      "code": [
+        {
+          "code": ProjectCodes.tme_demo,
+          "name": "TME-EDU-ARD-2-demo.ino"
+        },
+       
+      ],
       "imagepath": "assets/images/project/service-428540_640.jpg",
       "by": "TME Education",
       "subtittle": "A demo code to test every functionality of TME Education arduino board",
@@ -573,6 +664,20 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Timer",
       "fetured": true,
+      "code": [
+        {
+          "code": ProjectCodes.timer,
+          "name": "Timer.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/clock-691143_640.jpg",
       "by": "TME Education",
       "subtittle": "Building a timer using OLED display",
@@ -583,6 +688,20 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Weather station",
       "fetured": true,
+       "code": [
+        {
+          "code": ProjectCodes.weather_station,
+          "name": "WeatherStation.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/technology-1850021_640.jpg",
       "by": "TME Education",
       "subtittle": "Building a weather station using sensors and OLED display",
@@ -594,8 +713,6 @@ class _ProjectsViewState extends State<ProjectsView> {
   ];
 
   String selected = "all";
-
-
 
   @override
   Widget build(BuildContext context) {

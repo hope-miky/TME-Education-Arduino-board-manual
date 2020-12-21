@@ -3865,63 +3865,1928 @@ void bip(){
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // static const dice = '''
-    
-  // ''';
+  static const oled_graphics = '''
+    /*  TME EDUCATION
+ *  In this program, we'll scratch a little using display display
+ *  v0.1.0
+ *  -------------
+ *  display-Graphics
+ */ 
+#define PROJECT_NAME "display-Graphics"
+#define VERSION "v0.1.0"
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define RESET_BTN 4
+
+
+#include "includes.h"
+////////CONSTANTS////////
+//In this section, all constants resulting from the prototype board design are set
+
+////////MODIFIERS////////
+//In this section there are constants whose modification will affect the operation of our plate
+
+
+////////DECLARATIONS////////
+//This section prepares variables that are responsible for the individual components on the board
+hd44780_I2Cexp lcd(0x20, I2Cexp_MCP23008, 7, 6, 5, 4, 3, 2, 1, HIGH);
+Adafruit_SSD1306 display(SCREEN_WIDTH,SCREEN_HEIGHT, &Wire, RESET_BTN);
+
+
+//Creating programs is mainly finding a way to solve the problem. 
+//Fortunately, we have some tools that will allow us to solve them. 
+//In this program, I gave you some tools. Try to use them to do two things:
+//- Draw a face
+//- Make a tic-tac-toe game
+
+void setup(){
+  lcd.begin(16, 2);
+  intro(lcd);
+
+  //These methods are explained in the "Knob-Oscilloscope" program if you don't remember what they are responsible for.
+  display.begin(0x2, 0x3C, false);
+  display.clearDisplay();
+}
+
+
+void loop(){
+  //A branch() function is performed at the very bottom of the program. 
+  //It is a recursive function, that is, one that calls itself.
+  branch(64.0);
+  display.display();
+  delay(1000);
+  display.clearDisplay();
+
+  //drawChar(x, y, char, color, background, size) - draw a char
+  display.drawChar(20, 0, 'x', 1, 1, 6);
+  display.display();
+  delay(1000);
+  display.clearDisplay();
+
+  //drawCircle(x, y, radius, color) - draw a circle
+  display.drawCircle(32, 32, 10, 1);
+  display.display();
+  delay(1000);
+  display.clearDisplay();
+
+  //drawTriangle(x0, y0, x1, y1, x2, y2, color) - draw a triangle
+  display.drawTriangle(32, 32, 10, 50, 10, 20, 1);
+  display.display();
+  delay(1000);
+  display.clearDisplay();
+
+  //drawRoundRect(x, y, width, height, radius, color) - draw a rounded rectangle
+  display.drawRoundRect(32, 32, 20, 20, 5, 1);
+  display.display();
+  delay(1000);
+  display.clearDisplay();
+
+  //fillRoundRect(x, y, width, height, radius, color) - draw a filled rounded rectangle
+  display.fillRoundRect(32, 32, 20, 20, 5, 1);
+  display.display();
+  delay(1000);
+  display.clearDisplay();
+
+  //drawFastVLine(x, y, height, color) - draw a vertical line
+  //drawFastHLine(x, y, widht, color) - draw a horizontal line
+  display.drawFastVLine(10, 10, 20, 1);
+  display.drawFastHLine(10, 10, 20, 1);
+  display.display();
+  delay(1000);
+  display.clearDisplay();
+}
+
+
+//the recursive function is here ;)
+void branch(float h){
+  h *= 0.66;
+
+  if(h>2){
+    //drawLine(x0, y0, x1, y1, color) - draw a line
+    display.drawLine(h, h, h*2+10, h+10, 1);
+    branch(h);
+  }
+}
+  ''';
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // static const dice = '''
+  static const paint = '''
+    /*  TME EDUCATION
+ *  Paint
+ *  v0.0.0
+ *  -------------
+ *  Description
+ */ 
+#define PROJECT_NAME "Paint"
+#define VERSION "v0.0.0"
+
+#include "includes.h"
+////////CONSTANTS////////
+//In this section, all constants resulting from the prototype board design are set
+#define KEY_LEFT 4
+#define KEY_DOWN 5
+#define KEY_UP 6
+#define KEY_RIGHT 7
+#define KEY_CENTER 8
+#define POTENTIOMETER 1
+
+////////MODIFIERS////////
+//In this section there are constants whose modification will affect the operation of our plate
+#define DISPLAY_HEIGHT 64
+#define DISPLAY_WIDTH 128
+
+////////DECLARATIONS////////
+//This section prepares variables that are responsible for the individual components on the board
+hd44780_I2Cexp lcd(0x20, I2Cexp_MCP23008, 7, 6, 5, 4, 3, 2, 1, HIGH);
+Adafruit_SSD1306 display(DISPLAY_WIDTH, DISPLAY_HEIGHT, &Wire, 4);
+unsigned long screenTime;
+unsigned long blinkTime;
+
+//uint8_t bitmapp[1024];
+
+struct xy{
+  int x;
+  int y;
+} cursor;
+
+enum opt{
+  SETTINGS = 0,
+  DRAW
+} option;
+
+enum drawingOpt{
+  TOOL = 0,
+  SIZE
+} drawingOption = TOOL;
+
+enum toolsOpt{
+  PEN = 0,
+  SPRAY,
+  ERASER
+} toolType = PEN;
+
+int sizeOfTool = 1;
+
+bool blink = true;
+
+void setup(){
+//  Serial.begin(9600);
+//  Serial.println("a");
+  lcd.begin(16, 2);
+  intro(lcd);
+
+  pinMode(KEY_LEFT, INPUT);
+  pinMode(KEY_DOWN, INPUT);
+  pinMode(KEY_UP, INPUT);
+  pinMode(KEY_RIGHT, INPUT);
+  pinMode(KEY_CENTER, INPUT);
+
+  display.begin(0x2, 0x3C, false);
+  display.clearDisplay();
+  display.display();
+
+  cursor.x = 0;
+  cursor.y = 0;
+//  Serial.println("b");
+//  for(int i = 0; i < 1024; i++){
+//    bitmapp[i] = 0;
+//  }
+//  Serial.println("c");
+//  Serial.println("SETUP");
+//  for(int x = 0; x < 128; x += 5){
+//    for(int y = 0; y < 64; y += 5){
+//      drawPixelOnBitmap(x, y);
+//    }
+//  }
+//  Serial.println("d");
+  
+//  display.clearDisplay();
+//  display.drawBitmap(0, 0, bitmapp, 128, 64, 1);
+//  display.display();
+//  drawBitmap(bitmapp);
+//  Serial.println("e");
+  screenTime = millis();
+  blinkTime = millis();
+
+  lcd.clear();
+  setupProgramMode();
+  setupDrawingOption();
+}
+/////////////////////////////////////////////////
+void loop(){  
+  if(screenTime + 20 < millis()){ // SLOW LOOP FOR DRAWING
+
+    // STEROWANIE KURSOREM RYSOWANIA
+    if(option == DRAW){
+      if(digitalRead(KEY_LEFT)){
+        cursor.x--;
+        if(cursor.x < 0){
+          cursor.x = 0;
+        }
+      }
+      if(digitalRead(KEY_RIGHT)){      
+        cursor.x++;
+        if(cursor.x > DISPLAY_WIDTH){
+          cursor.x = DISPLAY_WIDTH;
+        }
+      }
+      if(digitalRead(KEY_UP)){
+        cursor.y--;
+        if(cursor.y < 0){
+          cursor.y = 0;
+        }
+      }
+      if(digitalRead(KEY_DOWN)){
+        cursor.y++;
+        if(cursor.y > DISPLAY_HEIGHT){
+          cursor.y = DISPLAY_HEIGHT;
+        }
+      }
+    } else if(option == SETTINGS){ // STEROWANIE OPCJAMI RYSOWANIA
+      if(digitalRead(KEY_LEFT)){
+        drawingOption = (drawingOpt)(drawingOption - 1);
+        if(drawingOption < 0)
+          drawingOption = (drawingOpt)1;
+        delay(200);
+      }
+      if(digitalRead(KEY_RIGHT)){ 
+        drawingOption = (drawingOpt)(drawingOption + 1);
+        if(drawingOption > 1)
+          drawingOption = (drawingOpt)0;
+        delay(200);
+      }
+
+      if(digitalRead(KEY_UP)){
+        if(drawingOption == TOOL){
+          toolType = (toolsOpt)(toolType + 1);
+          if(toolType > 2)
+            toolType = (toolsOpt)0;
+        }else if(drawingOption == SIZE){
+          sizeOfTool++;
+          if(sizeOfTool > 20)
+            sizeOfTool = 20;
+        }
+        delay(200);
+      }
+      if(digitalRead(KEY_DOWN)){
+        if(drawingOption == TOOL){
+          toolType = (toolsOpt)(toolType - 1);
+          if(toolType < 0)
+            toolType = (toolsOpt)2;
+        }else if(drawingOption == SIZE){
+          sizeOfTool--;
+          if(sizeOfTool < 1)
+            sizeOfTool = 1;
+        }
+        delay(200);
+      }
+
+      updateDrawingOption();
+
+    }
     
-  // ''';
+    // DRAWING DRAWING DRAWING DRAWING DRAWING DRAWING DRAWING DRAWING DRAWING DRAWING DRAWING
+    if(digitalRead(KEY_CENTER)){
+      if(toolType == PEN){
+        pen();
+      } else if(toolType == SPRAY){
+        spray();
+      } else if(toolType == ERASER){
+        eraser();
+      }
+    }
+    
+    display.display();
+
+    screenTime = millis();    
+  }
+
+  // BLINK AND LCD
+  if(blinkTime + 500 < millis()){
+    if(analogRead(POTENTIOMETER) > 500){
+      option = SETTINGS;
+      // settings();
+    } else {
+      option = DRAW;
+      // drawing();
+    }
+
+    blink = !blink;
+    updateProgramMode();
+
+    blinkTime = millis();
+  }
+}
+/////////////////////////////////////////////////////////////////////
+
+void setupDrawingOption(){
+  
+}
+
+void updateDrawingOption(){
+  lcd.setCursor(1, 1);
+  if(toolType == PEN){
+    lcd.print(" PEN  ");
+  } else if(toolType == SPRAY){
+    lcd.print("SPRAY ");
+  } else if(toolType == ERASER){
+    lcd.print("ERASER");
+  }
+
+  lcd.setCursor(13, 1);
+  if(sizeOfTool < 10)
+    lcd.print("0");
+  lcd.print(sizeOfTool); 
+
+  if(drawingOption == TOOL){
+    lcd.setCursor(12, 1);
+    lcd.print(" ");
+    lcd.setCursor(15, 1);
+    lcd.print(" ");
+
+    lcd.setCursor(0, 1);
+    drawBlink('>');
+    
+    lcd.setCursor(7, 1);
+    drawBlink('<');
+    
+  } else if(drawingOption == SIZE){
+    lcd.setCursor(0, 1);
+    lcd.print(" ");
+    lcd.setCursor(7, 1);
+    lcd.print(" ");
+
+    lcd.setCursor(12, 1);
+    drawBlink('>');       
+
+    lcd.setCursor(15, 1);
+    drawBlink('<');
+  }
+}
+
+void setupProgramMode(){
+  lcd.setCursor(1, 0);
+  lcd.print("settings");
+
+  lcd.setCursor(11, 0);
+  lcd.print("draw");
+}
+
+void updateProgramMode(){
+  lcd.setCursor(0, 1);
+  lcd.print(" ");
+  lcd.setCursor(7, 1);
+  lcd.print(" ");
+  lcd.setCursor(12, 1);
+  lcd.print(" ");
+  lcd.setCursor(15, 1);
+  lcd.print(" ");
+
+  lcd.setCursor(10, 00);
+  lcd.print(" ");
+  lcd.setCursor(15, 0);
+  lcd.print(" ");
+  lcd.setCursor(0, 0);
+  lcd.print(" ");
+  lcd.setCursor(9, 0);
+  lcd.print(" ");
+
+  if(option == SETTINGS){
+    lcd.setCursor(0, 0);
+    drawBlink('>');
+
+    lcd.setCursor(9, 0);
+    drawBlink('<');
+  } else if(option == DRAW){
+    lcd.setCursor(10, 00);
+    drawBlink('>');
+
+    lcd.setCursor(15, 0);
+    drawBlink('<');
+  }
+}
+
+void drawBlink(char character){
+  if(blink){
+    lcd.print(character);
+  } else {
+    lcd.print(" ");
+  }
+}
+
+void pen(){
+  display.fillCircle(cursor.x, cursor.y, sizeOfTool, 1);
+}
+
+void spray(){
+  display.drawPixel(cursor.x + random(sizeOfTool) - sizeOfTool / 2, cursor.y + random(sizeOfTool) - sizeOfTool / 2, 1);
+  display.drawPixel(cursor.x + random(sizeOfTool) - sizeOfTool / 2, cursor.y + random(sizeOfTool) - sizeOfTool / 2, 1);
+  display.drawPixel(cursor.x + random(sizeOfTool) - sizeOfTool / 2, cursor.y + random(sizeOfTool) - sizeOfTool / 2, 1);
+  display.drawPixel(cursor.x + random(sizeOfTool) - sizeOfTool / 2, cursor.y + random(sizeOfTool) - sizeOfTool / 2, 1);
+}
+
+void eraser(){
+  display.fillRect(cursor.x - sizeOfTool, cursor.y - sizeOfTool, sizeOfTool * 2, sizeOfTool * 2, 0);
+}
+  ''';
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // static const dice = '''
+  static const pong_game = '''
+    /*  TME EDUCATION
+ *  Template
+ *  v0.0.0
+ *  -------------
+ *  Description
+ */ 
+#define PROJECT_NAME "Template"
+#define VERSION "v0.0.0"
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define RESET_BTN 4
+
+
+#include "includes.h"
+////////CONSTANTS////////
+//In this section, all constants resulting from the prototype board design are set
+#define POTENTIOMETER A1
+#define BUZZER 2
+////////MODIFIERS////////
+//In this section there are constants whose modification will affect the operation of our plate
+
+
+////////DECLARATIONS////////
+//This section prepares variables that are responsible for the individual components on the board
+hd44780_I2Cexp lcd(0x20, I2Cexp_MCP23008, 7, 6, 5, 4, 3, 2, 1, HIGH);
+Adafruit_SSD1306 display(SCREEN_WIDTH,SCREEN_HEIGHT, &Wire, RESET_BTN);
+
+int xVel = 1;
+int yVel = 1;
+int speed = 3;
+bool up = true;
+bool right = true;
+
+int p1points = 0;
+int p2points = 0;
+
+struct vector{
+  int x;
+  int y;
+}ball, p1, p2;
+
+void setup(){
+  lcd.begin(16, 2);
+//  intro(lcd);
+
+  display.begin(0x2, 0x3C, false);
+  display.clearDisplay();
+  display.display();
+  
+  pinMode(BUZZER, OUTPUT);
+  
+  p1.x = 5;
+  p1.y = 0;
+  
+  p2.x = 123;
+  p2.y = 0;
+
+  ball.x = 10;
+  ball.y = random(20);
+
+  display.setTextColor(1); 
+  display.setTextSize(2);
+}
+
+void loop(){
+  ballPhysics();
+  p1Physics();
+  p2Physics();
+  
+  display.clearDisplay();
+  drawPlayers();
+  drawBall();
+  drawPoints();
+  display.display();
+  
+  delay(50);
+  speed = p2points + 3;
+}
+
+
+void ballPhysics(){
+  if(ball.x <= 0){
+    right = true;
+    p2points++;
+    xVel = -xVel;
+  }
+  if(ball.x >= 127){
+    right = false;
+    p1points++;
+    xVel = -xVel;
+  }
+  ///////////
+  if(ball.y <= 0){
+    yVel = -yVel;
+    up = false;    
+  }
+  if(ball.y >= 63){
+    yVel = -yVel;
+    up = true;    
+  }
+////////////
+
     
-  // ''';
+
+//////////////////
+  if(ball.x <= 8){
+    
+    if(ball.y >= p1.y && ball.y < p1.y + 5){
+      beep();
+      yVel = -1;
+      xVel = 1;
+    }
+    if(ball.y >= p1.y + 5 && ball.y < p1.y + 10){
+      beep();
+      yVel = 0;
+      xVel = 1;
+    }
+    if(ball.y >= p1.y + 10 && ball.y < p1.y + 15){
+      beep();
+      yVel = 1;
+      xVel = 1;
+    }
+  }
+  if(ball.x >= 120){
+    
+    if(ball.y >= p2.y && ball.y < p2.y + 5){
+      beep();
+      yVel = -1;
+      xVel = -1;
+    }
+    if(ball.y >= p2.y + 5 && ball.y < p2.y + 10){
+      beep();
+      yVel = 0;
+      xVel = -1;
+    }
+    if(ball.y >= p2.y + 10 && ball.y < p2.y + 15){
+      beep();
+      yVel = 1;
+      xVel = -1;
+    }
+  }
+
+  //////////////
+  ball.y += yVel * speed;
+
+    ball.x += xVel * speed;
+}
+
+void p1Physics(){
+  if(p1.y < ball.y -7){
+    p1.y += 2;
+  }else{
+    p1.y -= 2;
+  }
+}
+
+void p2Physics(){
+  p2.y = map(analogRead(POTENTIOMETER), 0, 1023, 0, 63);
+}
+
+void drawPlayers(){
+  display.fillRect(p1.x, p1.y, 3, 15, 1);
+  display.fillRect(p2.x, p2.y, 3, 15, 1);
+}
+
+void drawBall(){
+  display.fillCircle(ball.x, ball.y, 3, 1);
+}
+
+void drawPoints(){
+  display.setCursor(30, 5);
+  display.print(p1points);
+  display.setCursor(90, 5);
+  display.print(p2points);
+}
+
+void beep(){
+  digitalWrite(BUZZER, HIGH);
+  delay(10);
+  digitalWrite(BUZZER, LOW);
+}
+  ''';
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // static const dice = '''
-    
-  // ''';
+  static const rgb_show = '''
+    /*  TME EDUCATION
+ *  Rgb Show
+ *  v0.1.0
+ *  -------------
+ *  Rgb Show
+ */ 
+#define PROJECT_NAME "Rgb Show"
+#define VERSION "v0.1.0"
+
+#include "includes.h"
+////////CONSTANTS////////
+//In this section, all constants resulting from the prototype board design are set
+#define POTENTIOMETER A1
+#define LED_SERIAL 12
+#define LED_COUNT 5
+
+////////MODIFIERS////////
+//In this section there are constants whose modification will affect the operation of our plate
+
+
+////////DECLARATIONS////////
+//This section prepares variables that are responsible for the individual components on the board
+hd44780_I2Cexp lcd(0x20, I2Cexp_MCP23008, 7, 6, 5, 4, 3, 2, 1, HIGH);
+Adafruit_NeoPixel ledStrip = Adafruit_NeoPixel(LED_COUNT, LED_SERIAL, NEO_GRB + NEO_KHZ800);
+Adafruit_MCP23008 seg;
+
+void setup(){
+  lcd.begin(16, 2);
+  intro(lcd);
+
+  pinMode(POTENTIOMETER, INPUT);
+
+  lcd.print("       Use");
+  lcd.setCursor(0, 1);
+  lcd.print("  potentiometer");
+
+  seg.begin(0x4);
+  for(int i = 0; i < 8; i++)
+    seg.pinMode(i, OUTPUT);
+
+  ledStrip.begin();
+  ledStrip.show();
+}
+int angle = 0;
+void loop(){
+  angle += 1;
+  delay(10);
+  if(angle > 360){
+    angle = 0;
+  }
+  setColor(hue(map(analogRead(POTENTIOMETER), 0, 1023, 0, 360)));
+
+  printOnSevenSeg(map(angle, 0, 360, 0, 10));
+}
+
+void setColor(uint32_t color){
+  
+  // for(uint16_t i = 0; i < analogRead(POTENTIOMETER)/256; i++){
+  //   if()
+  // }
+  int pot = (map(analogRead(POTENTIOMETER), 0, 1023, 0, 5));
+  ledStrip.setPixelColor(pot, color);
+  if(pot == 0){
+    setColorForAll(hue(angle));
+  }
+  ledStrip.show();
+}
+
+void setColorForAll(uint32_t color){
+  for(uint16_t i = 0; i < ledStrip.numPixels(); i++){
+    ledStrip.setPixelColor(i, color);
+  }  
+  ledStrip.show();
+}
+
+uint32_t hue(int angle){
+  if(angle > 360)
+    angle = 360;
+  if(angle < 0)
+    angle = 0;
+
+  angle = 360 - angle;
+
+  if(angle <= 60){
+    return ledStrip.Color(255, angle * (255.0 / 60.0), 0);
+  }else if(angle <= 120){
+    return ledStrip.Color(255 - ((angle - 60) * (255.0 / 60.0)), 255, 0);
+  }else if(angle <= 180){
+    return ledStrip.Color(0, 255, (angle - 120) * (255.0 / 60.0));
+  }else if(angle <= 240){
+    return ledStrip.Color(0, 255 - ((angle - 180) * (255.0 / 60.0)), 255);
+  }else if(angle <= 300){
+    return ledStrip.Color((angle - 240) * (255.0 / 60.0), 0, 255);
+  }else if(angle <= 360){
+    return ledStrip.Color(255, 0, 255 - ((angle - 300) * (255.0 / 60.0)));
+  }
+}
+
+void printOnSevenSeg(int sign){
+  uint8_t data = 0;
+  
+  switch(sign){
+    case 0:
+      data = B11111100;
+      break;
+    case 1:
+      data = B01100000;
+      break;
+    case 2:
+      data = B11011010;
+      break;
+    case 3:
+      data = B11110010;
+      break;
+    case 4:
+      data = B01100110;
+      break;
+    case 5:
+      data = B10110110;
+      break;
+    case 6:
+      data = B10111110;
+      break;
+    case 7:
+      data = B11100000;
+      break;
+    case 8:
+      data = B11111110;
+      break;
+    case 9:
+      data = B11110110;
+      break;
+  }
+  for(int i = 0; i < 8; i++)
+    seg.digitalWrite(i, bitRead(data, 7 - i));  
+}
+  ''';
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // static const dice = '''
+  static const rand_num = '''
+    /*  TME EDUCATION
+ *  Random
+ *  v0.1.0
+ *  -------------
+ *  Random numbers
+ */ 
+#define PROJECT_NAME "Random"
+#define VERSION "v0.1.0"
+
+#include "includes.h"
+////////CONSTANTS////////
+//In this section, all constants resulting from the prototype board design are set
+#define KEY_RIGHT 7
+#define KEY_LEFT 4
+#define MICROPHONE A0
+#define BUZZER 2
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define RESET_BTN 4
+////////MODIFIERS////////
+//In this section there are constants whose modification will affect the operation of our plate
+
+
+////////DECLARATIONS////////
+//This section prepares variables that are responsible for the individual components on the board
+hd44780_I2Cexp lcd(0x20, I2Cexp_MCP23008, 7, 6, 5, 4, 3, 2, 1, HIGH);
+Adafruit_MCP23008 seg;
+Adafruit_SSD1306 display(SCREEN_WIDTH,SCREEN_HEIGHT, &Wire, RESET_BTN);
+
+
+void setup(){
+  lcd.begin(16, 2);
+  // intro(lcd);
+
+  display.begin(0x2, 0x3C, false);
+  display.clearDisplay();
+  display.display();
+
+  seg.begin(0x4);
+  for(int i = 0; i < 8; i++)
+    seg.pinMode(i, OUTPUT);
+
+  pinMode(KEY_RIGHT , INPUT);
+  pinMode(KEY_LEFT , INPUT);
+  pinMode(MICROPHONE, INPUT);
+
+  randomSeed(analogRead(MICROPHONE));
+
+  lcd.print(" press to rand");
+  lcd.setCursor(0, 1);
+  lcd.print("<- one or two ->");
+
+  display.setTextColor(1); 
+  display.setTextSize(8);
+}
+
+void loop(){
+  if(digitalRead(KEY_LEFT)){
+    while(digitalRead(KEY_LEFT)){
+      display.clearDisplay();
+      display.setCursor(45, 0);
+      display.println(random(0, 9));
+      display.display();
+
+      if(millis() % 200 > 100 && millis() % 200 < 150)
+        tone(BUZZER, 1000, 100);
+    }
+    delay(5000);
+  }
+
+  if(digitalRead(KEY_RIGHT)){
+    while(digitalRead(KEY_RIGHT)){
+      display.clearDisplay();
+      display.setCursor(45, 0);
+      display.println(random(0, 10));
+      display.display();
+
+      printOnSevenSeg(random(0, 10));
     
-  // ''';
+      if(millis() % 200 > 100 && millis() % 200 < 150)
+        tone(BUZZER, 1000, 100);
+    }
+    delay(5000);
+  }
+
+  if(millis() % 1000 == 0){
+    tone(BUZZER, 1000, 100);
+
+    display.clearDisplay();
+    display.setCursor(45, 0);
+    display.println(random(0, 10));
+    display.display();
+
+    printOnSevenSeg(random(0, 10));
+  }
+}
+
+void printOnSevenSeg(int sign){
+  uint8_t data = 0;
+  
+  switch(sign){
+    case 0:
+      data = B11111100;
+      break;
+    case 1:
+      data = B01100000;
+      break;
+    case 2:
+      data = B11011010;
+      break;
+    case 3:
+      data = B11110010;
+      break;
+    case 4:
+      data = B01100110;
+      break;
+    case 5:
+      data = B10110110;
+      break;
+    case 6:
+      data = B10111110;
+      break;
+    case 7:
+      data = B11100000;
+      break;
+    case 8:
+      data = B11111110;
+      break;
+    case 9:
+      data = B11110110;
+      break;
+  }
+  for(int i = 0; i < 8; i++)
+    seg.digitalWrite(i, bitRead(data, 7 - i));  
+}
+  ''';
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // static const dice = '''
+  static const snake_game = '''
+    /*  TME EDUCATION
+ *  Snake
+ *  v1.0.0
+ *  -------------
+ *  A snake game using an display display
+ */ 
+#define PROJECT_NAME "Snake"
+#define VERSION "v1.0.0"
+
+#include "includes.h"
+////////CONSTANTS////////
+//In this section, all constants resulting from the prototype board design are set
+#define KEY_LEFT 4
+#define KEY_DOWN 5
+#define KEY_UP 6
+#define KEY_RIGHT 7 
+#define KEY_CENTER 8
+#define POTENTIOMETER 1
+#define BUZZER 2
+#define LED 13
+
+////////MODIFIERS////////
+//In this section there are constants whose modification will affect the operation of our plate
+#define DISPLAY_HEIGHT 64
+#define DISPLAY_WIDTH 128
+#define CANVAS_HEIGHT 9
+#define CANVAS_WIDTH 18
+#define SEGMENT_SIZE 3
+#define MARGIN_TOP 11 //max 11
+#define MARGIN_LEFT 21 //max 21
+
+////////DECLARATIONS////////
+//This section prepares variables that are responsible for the individual components on the board
+hd44780_I2Cexp lcd(0x20, I2Cexp_MCP23008, 7, 6, 5, 4, 3, 2, 1, HIGH);
+Adafruit_SSD1306 display(DISPLAY_WIDTH, DISPLAY_HEIGHT, &Wire, 4);
+
+uint8_t headX = 4;
+uint8_t headY = 4;
+uint8_t tailX[31] = {};
+uint8_t tailY[31] = {};
+uint8_t foodX = 1;
+uint8_t foodY = 1;
+uint8_t snakeSize = 0;
+unsigned long lastTime;
+enum {
+  left,
+  right,
+  up,
+  down,
+} direction, lastDirection;
+
+void setup(){
+  lcd.begin(16, 2);
+ intro(lcd);
+
+  pinMode(KEY_LEFT, INPUT);
+  pinMode(KEY_DOWN, INPUT);
+  pinMode(KEY_UP, INPUT);
+  pinMode(KEY_RIGHT, INPUT);
+  pinMode(KEY_CENTER, INPUT);
+  pinMode(BUZZER, OUTPUT);
+  pinMode(LED, OUTPUT);
+  
+  display.begin(0x2, 0x3C, false);
+  display.setTextColor(1);
+  display.setTextSize(2);
+  display.clearDisplay();
+  drawCanvas();
+  createFood();
+  display.display();
+
+  lastTime = millis();
+}
+
+void loop(){
+  if(digitalRead(KEY_LEFT) && lastDirection != right){
+    direction = left;
+  }
+  if(digitalRead(KEY_RIGHT) && lastDirection != left){
+    direction = right;
+  }
+  if(digitalRead(KEY_UP) && lastDirection != down){
+    direction = up;
+  }
+  if(digitalRead(KEY_DOWN) && lastDirection != up){
+    direction = down;
+  }
+
+  int pot = analogRead(POTENTIOMETER);
+  int speedUp = 0;
+  if(pot > 950){
+    if(snakeSize < 7)
+      speedUp += snakeSize * 100;
+    else
+      speedUp += snakeSize * 25 + 600;    
+  }
+  if(lastTime + pot - speedUp < millis()){
+    lastDirection = direction;
     
-  // ''';
+    if(direction == left){
+      if(headX == 0){
+        headX = CANVAS_WIDTH;
+      }
+      headX--;
+    }
+    if(direction == right){      
+      headX++;
+      if(headX == CANVAS_WIDTH){
+        headX = 0;
+      }
+    }
+    if(direction == up){
+      if(headY == 0){
+        headY = CANVAS_HEIGHT;
+      }
+      headY--;
+    }
+    if(direction == down){
+      headY++;
+      if(headY == CANVAS_HEIGHT){
+        headY = 0;
+      }
+    }
+
+    drawSnake();
+    lastTime = millis();
+  }
+}
+
+void drawSnake(){
+  drawSegment(tailX[snakeSize], tailY[snakeSize], 0);
+  
+  for(int i = snakeSize; i > 0; i--){
+    if(tailX[i] == headX && tailY[i] == headY && i != snakeSize || snakeSize == 30){
+      String endingText = snakeSize == 30 ? "YOU WIN" : "GAME OVER";
+      snakeSize = 0;
+      display.clearDisplay();      
+      display.setCursor(10, 30);      
+      display.println(endingText);
+      display.display();
+      play(0, 120);
+      play(1175, 120);
+      play(1047, 480);
+      delay(4000);
+      display.clearDisplay();
+      drawCanvas();
+      createFood();
+    }
+    tailX[i] = tailX[i - 1];
+    tailY[i] = tailY[i - 1];
+  }
+
+  tailX[0] = headX;
+  tailY[0] = headY;
+
+  if(headX == foodX && headY == foodY){
+    createFood();
+    snakeSize++;
+  }
+
+  clearScore();
+  display.setCursor(0, 0);
+  display.println(snakeSize);
+  
+  drawSegment(headX, headY, 1);
+  display.display();
+}
+
+void createFood(){
+  boolean drawAgain = true;
+
+  drawFood(foodX, foodY, 0);
+  drawCanvas();
+  beep();
+  while(drawAgain){
+    drawAgain = false;
+    foodX = random(0, CANVAS_WIDTH);
+    foodY = random(0, CANVAS_HEIGHT);
+    
+    for(int i = 0; i < snakeSize; i++){
+      if(tailX[i] == foodX && tailY[i] == foodY){
+        drawAgain = true;
+      }
+    }
+  }
+
+  drawFood(foodX, foodY, 1);
+}
+
+void drawFood(uint8_t x, uint8_t y, uint8_t color){
+  display.drawRoundRect(MARGIN_LEFT + 0 + x * SEGMENT_SIZE * 2, // x
+                     MARGIN_TOP + 0 + y * SEGMENT_SIZE * 2, // y
+                     5, // width
+                     5, // height
+                     0, // radius
+                     color); // color
+}
+
+void drawSegment(uint8_t x, uint8_t y, uint8_t color){
+  display.fillRoundRect(MARGIN_LEFT + 1 + x * SEGMENT_SIZE * 2, // x
+                     MARGIN_TOP + 1 + y * SEGMENT_SIZE * 2, // y
+                     3, // width
+                     3, // height
+                     0, // radius
+                     color); // color
+}
+
+void drawCanvas(){
+  display.drawRoundRect(MARGIN_LEFT, // x
+                     MARGIN_TOP, // y
+                     CANVAS_WIDTH * SEGMENT_SIZE * 2 - SEGMENT_SIZE + 2, // width
+                     CANVAS_HEIGHT * SEGMENT_SIZE * 2 - SEGMENT_SIZE + 2, // height
+                     0, // radius
+                     1); // color
+}
+
+void clearScore(){
+  display.fillRoundRect(0, // x
+                     0, // y
+                     22, // width
+                     22, // height
+                     0, // radius
+                     0); // color
+  drawCanvas();
+}
+
+void beep(){
+  digitalWrite(BUZZER, HIGH);
+  digitalWrite(LED, HIGH);
+  delay(10);
+  digitalWrite(BUZZER, LOW);
+  digitalWrite(LED, LOW);
+}
+
+void play(int freq, int duration){
+  tone(BUZZER, freq, duration);
+  delay(duration);
+}
+  ''';
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // static const dice = '''
-    
-  // ''';
+  static const thermometer_lcd = '''
+    /*  TME EDUCATION
+ *  Thermometer-Lcd
+ *  v0.1.0
+ *  -------------
+ *  In this program we will use the built-in thermometer to show the ambient temperature.
+ */ 
+#define PROJECT_NAME "Thermometer-Lcd"
+#define VERSION "v0.1.0"
+
+#include "includes.h"
+////////CONSTANTS////////
+//In this section, all constants resulting from the prototype board design are set
+#define THERMOMETER A2
+
+////////MODIFIERS////////
+//In this section there are constants whose modification will affect the operation of our plate
+
+
+////////DECLARATIONS////////
+//This section prepares variables that are responsible for the individual components on the board
+hd44780_I2Cexp lcd(0x20, I2Cexp_MCP23008, 7, 6, 5, 4, 3, 2, 1, HIGH);
+
+void setup(){
+  lcd.begin(16, 2);
+  intro(lcd);
+
+  //The thermometer as the loudspeaker is an analog device. 
+  //The read value should be scaled to the known value given in degrees Celsius or Fahrenheit.
+  pinMode(THERMOMETER, INPUT);
+}
+
+void loop(){
+  lcd.setCursor(0,0);
+  lcd.print(analogRead(THERMOMETER) * 0.125 - 22.0);
+  delay(500);  
+}
+  ''';
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // static const dice = '''
+  static const tme_demo = '''
+    /* Requied libraries:
+ *  - hd44780 by Bill Perry
+ *  - Adafriut_SSD1306
+ *  - Adafriut_GFX
+ *  - Adafriut_NEoPixel
+ */
+
+ /* 
+  *  BUTTONS:
+  *  UP:      light RED(RGB) LED 
+  *  DOWN:    light BLUE(RGB) LED
+  *  LEFT:    light BLUE LED
+  *  RIGHT:   make some noise (buzzer)
+  *  CENTER:  light GREEN(RGB) LED
+  *  
+  * ADDRESSABLE LEDs (WS2812):
+  *   [0] - random color
+  *   [1-4] - PCB backlight (BLUE)
+  */
+  
+#include <SoftwareSerial.h>
+
+#include <Wire.h>
+#include <hd44780.h>
+#include <hd44780ioClass/hd44780_I2Cexp.h>
+
+#include <SPI.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define RESET_BTN 4
+
+Adafruit_SSD1306 display(SCREEN_WIDTH,SCREEN_HEIGHT, &Wire, RESET_BTN);
+//#define LOGO16_GLCD_HEIGHT 16 
+//#define LOGO16_GLCD_WIDTH  16 
+
+#include <Adafruit_NeoPixel.h>
+
+#include "Adafruit_MCP23008.h"
+
+#define IR_PIN 3
+#include <RC5.h>
+
+const int LCD_ROWS = 2;
+const int LCD_COLS = 16;
+
+int LED1 = 13;
+int LED3_R = 9;
+int LED3_G = 10;
+int LED3_B = 11;
+int LED_SERIAL = 12;
+
+#define NUMPIXELS 5 // number of WS2812 LEDs in string
+Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, LED_SERIAL, NEO_GRB + NEO_KHZ800);
+
+Adafruit_MCP23008 mcp;
+
+RC5 rc5(IR_PIN); // IR receiver
+byte addr; 
+byte cmd;
+byte tog;
+
+int SW_LEFT = 4;
+int SW_RIGHT = 7;
+int SW_UP = 6;
+int SW_DOWN = 5;
+int SW_ENTER = 8;
+
+int BUZZ = 2;
+int IRREC = 3;
+int LIGHT = A3;
+int TEMP = A2; 
+int ROT = A1;
+int MIC = A0;
+
+int c1, c2, c3;
+int cmax = 31;
+
+/* 7-segment digits map */
+uint8_t seg7[11] = {
+  B11111100, // 0
+  B01100000, // 1
+  B11011010, // 2
+  B11110010, // 3
+  B01100110, // 4
+  B10110110, // 5
+  B10111110, // 6
+  B11100000, // 7
+  B11111110, // 8
+  B11110110, // 9
+  B01100001  // 1. (10)
+};
+
+
+hd44780_I2Cexp lcd(0x20, I2Cexp_MCP23008,7,6,5,4,3,2,1,HIGH);
+
+
+void setup() {
+
+  Serial.begin(9600); 
+
+  /* initialize expander for 7-seg display */
+  mcp.begin(0x4); // offset above 0x20 (lowest address)
+  mcp.pinMode(0, OUTPUT);
+  mcp.pinMode(1, OUTPUT);
+  mcp.pinMode(2, OUTPUT);
+  mcp.pinMode(3, OUTPUT);
+  mcp.pinMode(4, OUTPUT);
+  mcp.pinMode(5, OUTPUT);
+  mcp.pinMode(6, OUTPUT);
+  mcp.pinMode(7, OUTPUT);
+  
+  pinMode(LED1, OUTPUT);
+  pinMode(LED3_R, OUTPUT);
+  pinMode(LED3_G, OUTPUT);
+  pinMode(LED3_B, OUTPUT);
+  pinMode(BUZZ, OUTPUT);
+
+  pinMode(SW_LEFT , INPUT);
+  pinMode(SW_RIGHT , INPUT);
+  pinMode(SW_UP , INPUT);
+  pinMode(SW_DOWN , INPUT);
+
+  pinMode(LIGHT, INPUT);
+  pinMode(TEMP, INPUT);
+  pinMode(ROT, INPUT);
+  pinMode(IRREC, OUTPUT);
+
+
+  digitalWrite(LED1, LOW);
+  digitalWrite(LED3_R, LOW);
+  digitalWrite(LED3_G, LOW);
+  digitalWrite(LED3_B, LOW);
+
+  if( lcd.begin(LCD_COLS, LCD_ROWS)){
+  }
+
+  lcd.print(" Welcome to");
+  lcd.setCursor(0, 1);
+  lcd.print(" TME EDUCATION ");
+
+  /* OLED TEST */
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C, false);
+  delay(100);
+  display.clearDisplay();
+  delay(100);
+  
+  /* initialize WS2812 LED string*/
+  pixels.begin();
+  
+  for (int k=0; k<250; k++)
+  {
+    pixels.setPixelColor(1, pixels.Color(0,0,k));
+    pixels.setPixelColor(2, pixels.Color(0,0,k));
+    pixels.setPixelColor(3, pixels.Color(0,0,k));
+    pixels.setPixelColor(4, pixels.Color(0,0,k));
+    pixels.show();
+    delay(5);
+  }
+  for (int k=250; k>100; k--)
+  {
+    pixels.setPixelColor(1, pixels.Color(0,0,k));
+    pixels.setPixelColor(2, pixels.Color(0,0,k));
+    pixels.setPixelColor(3, pixels.Color(0,0,k));
+    pixels.setPixelColor(4, pixels.Color(0,0,k));
+    pixels.show();
+    delay(5);
+  }
+
+  digitalWrite(LED1, HIGH);
+  delay(333);
+  digitalWrite(LED1, LOW);
+  
+  digitalWrite(LED3_R, HIGH);
+  pixels.setPixelColor(0, pixels.Color(255,0,0));
+  pixels.show();
+  delay(333);
+
+  digitalWrite(LED3_R, LOW);
+  digitalWrite(LED3_G, HIGH);
+  pixels.setPixelColor(0, pixels.Color(0,255,0));
+  pixels.show();
+  delay(333);
+
+  digitalWrite(LED3_G, LOW);
+  digitalWrite(LED3_B, HIGH);
+  pixels.setPixelColor(0, pixels.Color(0,0,255));
+  pixels.show();
+  delay(333);
+  
+  digitalWrite(LED3_B, LOW);
+  pixels.setPixelColor(0, pixels.Color(0,0,0));
+  pixels.show();  
+
+  /* draw UI on OLED */
+  display.setTextColor(WHITE);
+  display.clearDisplay();
+  display.setCursor(0,1);
+  display.println("POTENTIOMETER:");
+  display.setCursor(0,16);
+  display.println("LIGHT SENSOR:");
+  display.setCursor(0,31);
+  display.println("MICROPHONE:");
+  display.setCursor(0,46);
+  display.println("TEMP. SENSOR:");
+
+  display.drawRect(0, 10+15*0-1, 128, 5, 1);
+  display.drawRect(0, 10+15*1-1, 128, 5, 1);
+  display.drawRect(0, 10+15*2-1, 128, 5, 1);
+  display.drawRect(0, 10+15*3-1, 128, 5, 1);
+  display.display(); 
+
+  delay(1000);
+  lcd.clear();
+}
+
+
+
+void loop() {
+
+  int ctemp;
+  int crot;
+  int clight;
+
+  delay(500);
+
+  /* light LED after button press */
+  while(1) {
+    for (int i=0; i<1; i++) {
+      if(digitalRead(SW_LEFT))
+        digitalWrite(LED1, HIGH);
+      else 
+        digitalWrite(LED1, LOW);
+  
+      if(digitalRead(SW_UP))
+        digitalWrite(LED3_R, HIGH);
+      else
+        digitalWrite(LED3_R, LOW);
+  
+      if(digitalRead(SW_ENTER))
+        digitalWrite(LED3_G, HIGH);
+      else 
+        digitalWrite(LED3_G, LOW);
+  
+      if(digitalRead(SW_DOWN))
+        digitalWrite(LED3_B, HIGH);
+      else 
+        digitalWrite(LED3_B, LOW);
+  
+      if(digitalRead(SW_RIGHT))
+        digitalWrite(BUZZ, HIGH);
+      else 
+        digitalWrite(BUZZ, LOW);
+      delay(50);
+    }
+
+    crot =   (int)(((float)analogRead(ROT)/1023.0)*100.0);      // read potentiometer value
+    clight = (int)(((float)analogRead(LIGHT)/1023.0)*100.0);    // read light sensor value
+    ctemp = (int)(analogRead(TEMP)*0.125 - 22.0);               // read temperature sensor value
+
+    Serial.print("R: "); Serial.print(crot);
+    Serial.print("%, L: "); Serial.print(clight);
+    Serial.print("%, T: "); Serial.print(ctemp);Serial.print("*C\n");
+
+    /* LCD */
+ 
+    lcd.setCursor(0, 0);
+    lcd.print("R: "); lcd.print(crot); lcd.print("%  ");
+    lcd.setCursor(8, 0);
+    lcd.print("L: "); lcd.print(clight); lcd.print("%  ");
+    lcd.setCursor(0, 1);
+    lcd.print("T: "); lcd.print(ctemp); lcd.print((char)223); lcd.print("C  ");
+
+    /* OLED */
+    int proc;    
+    proc = (int)(analogRead(ROT)/1024.0*100.0);
+    draw_bar(1, proc, 1);
+    proc = (int)(analogRead(LIGHT)/1024.0*100.0);
+    draw_bar(2, proc, 1);
+    proc = (int)(analogRead(MIC)/1024.0*100.0);
+    draw_bar(3, proc, 1);
+    proc = (int)(analogRead(TEMP)/1024.0*100.0);
+    draw_bar(4, proc, 1);
+    display.display();
+
     
-  // ''';
+    /* show first digit of potentiometer value on 7-segment display */
+    int temp = (int)((float)analogRead(ROT)/101);
+    for (int j=0; j<8; j++) 
+      mcp.digitalWrite(j, (bool)bitRead(seg7[temp], 7-j));
+    
+
+    /* WS2812 */
+    crot = analogRead(ROT);
+ 
+  if (crot < 341)  // Lowest third of the potentiometer's range (0-340)
+  {                  
+    crot = (crot * 3) / 4; // Normalize to 0-255
+    c1 = 255 - crot;  // Red from full to off
+    c2 = crot;        // Green from off to full
+    c3 = 1;             // Blue off
+  }
+  else if (crot < 682) // Middle third of potentiometer's range (341-681)
+  {
+    crot = ( (crot-341) * 3) / 4; // Normalize to 0-255
+    c1 = 1;            // Red off
+    c2 = 255 - crot; // Green from full to off
+    c3 = crot;       // Blue from off to full
+  }
+  else  // Upper third of potentiometer"s range (682-1023)
+  {
+    crot = ( (crot-683) * 3) / 4; // Normalize to 0-255
+    c1 = crot;       // Red from off to full
+    c2 = 1;            // Green off
+    c3 = 255 - crot; // Blue from full to off
+  }
+    pixels.setPixelColor(0, pixels.Color(c1,c2,c3));
+    pixels.show();
+
+    if (rc5.read(&tog, &addr, &cmd))
+      {
+        Serial.print("A:");
+        Serial.print(addr);
+        Serial.print(" K:");
+        Serial.print(cmd);
+        Serial.print(" T:");
+        Serial.println(tog);
+        Serial.print("\n");
+      }
+
+  } 
+}
+
+// display bar
+void draw_bar(int line, int p, int col) {
+  uint8_t color = 1;
+  int split = (int)((display.width()-2) * p/100.0);
+  display.fillRect(1, 10+15*(line-1), split, 3, 1);
+  display.fillRect(split+1, 10+15*(line-1), display.width()-2-split, 3, 0);
+}
+  ''';
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // static const dice = '''
+  static const timer = '''
+    /*  TME EDUCATION
+ *  Timer
+ *  v0.1.0
+ *  -------------
+ *  Description
+ */ 
+#define PROJECT_NAME "Timer"
+#define VERSION "v0.1.0"
+
+#include "includes.h"
+#include "graphics/logoTmeEducation.h"
+////////CONSTANTS////////
+//In this section, all constants resulting from the prototype board design are set
+#define KEY_CENTER 8
+#define BUZZER 2
+#define LED 13
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define RESET_BTN 4
+
+////////MODIFIERS////////
+//In this section there are constants whose modification will affect the operation of our plate
+
+
+////////DECLARATIONS////////
+//This section prepares variables that are responsible for the individual components on the board
+hd44780_I2Cexp lcd(0x20, I2Cexp_MCP23008, 7, 6, 5, 4, 3, 2, 1, HIGH);
+Adafruit_SSD1306 display(SCREEN_WIDTH,SCREEN_HEIGHT, &Wire, RESET_BTN);
+int min, sec, milis;
+unsigned long startTime;
+boolean stoper = false, s1 = false, s2 = false;
+int sMin1, sSec1, sMilis1, sMin2, sSec2, sMilis2;
+
+void setup(){
+  lcd.begin(16, 2);
+  intro(lcd);
+
+  display.begin(0x2, 0x3C, false);
+  display.setTextColor(1);
+
+  pinMode(KEY_CENTER, INPUT);
+  pinMode(BUZZER, OUTPUT);
+  pinMode(LED, OUTPUT);
+  display.clearDisplay();
+  display.drawBitmap(0, 0, logoTmeEducation, 128, 64, 1);
+  display.display();
+  lcd.print("press center");
+  lcd.setCursor (0,1);
+  lcd.print (" button to start");
+
+}
+
+void loop(){
+  if(stoper)
+    display.clearDisplay();
     
-  // ''';
+  calculateTime();
+
+  if(digitalRead(KEY_CENTER)){
+    beep();
+    if(stoper == false){
+      stoper = true;
+      s1 = false;
+      s2 = false;
+      startStoper();
+    }else if(s1 == false){
+      s1 = true;
+      sMin1 = min;
+      sSec1 = sec;
+      sMilis1 = milis;
+    } else if( s2 == false){
+      s2 = true;
+      sMin2 = min;
+      sSec2 = sec;
+      sMilis2 = milis;
+    } else {
+      stoper = false;
+      drawTime();
+    }
+    while(digitalRead(KEY_CENTER))
+      delay(100);
+  }
+  
+  if(stoper)
+    drawTime();
+    
+  drawSubtimes();
+
+
+    
+  display.display();
+  delay(10);
+}
+
+void drawTime(){
+  drawMin();
+  drawSec();
+  drawMilis();
+}
+
+void drawMin(){
+  display.setCursor(25, 0);
+  display.setTextSize(3);
+  if(min < 10)
+    display.print("0");
+  display.print(min);
+  if(sec%2 == 0)
+    display.print(":");
+}
+
+void drawSec(){
+  display.setCursor(78, 0);
+  display.setTextSize(3);
+  if(sec < 10)
+    display.print("0");
+  display.print(sec);
+}
+
+void drawMilis(){
+  display.setCursor(116, 7);
+  display.setTextSize(2);
+  display.print(milis);
+}
+
+void calculateTime(){
+  milis = (millis() - startTime) % 1000 / 100;
+  sec = (millis() - startTime) / 1000 % 60;
+  min = (millis() - startTime) / 1000 / 60 % 60;
+}
+
+void startStoper(){
+  startTime = millis();
+}
+
+void drawSubtimes(){
+  if(s1)
+    drawFirstSubtime();
+  if(s2)
+    drawSecondSubtime();
+}
+
+void drawFirstSubtime(){
+  display.setCursor(0, 25);
+  display.setTextSize(2);
+
+  display.print("loop-");
+  
+  if(sMin1 < 10)
+    display.print("0");
+  display.print(sMin1);
+  display.print(":");
+
+  if(sSec1 < 10)
+    display.print("0");
+  display.print(sSec1);
+
+  display.setCursor(120, 32);
+  display.setTextSize(1);
+  display.print(sMilis1);
+}
+
+void drawSecondSubtime(){
+  display.setCursor(0, 45);
+  display.setTextSize(2);
+
+  display.print("loop-");
+  
+  if(sMin2 < 10)
+    display.print("0");
+  display.print(sMin2);
+  display.print(":");
+
+  if(sSec2 < 10)
+    display.print("0");
+  display.print(sSec2);
+
+  display.setCursor(120, 52);
+  display.setTextSize(1);
+  display.print(sMilis2);
+}
+
+void beep(){
+  digitalWrite(BUZZER, HIGH);
+  digitalWrite(LED, HIGH);
+  delay(10);
+  digitalWrite(BUZZER, LOW);
+  digitalWrite(LED, LOW);
+}
+  ''';
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // static const dice = '''
+  static const weather_station = '''
+    /*  TME EDUCATION
+ *  WheatherStation
+ *  v0.3.0
+ *  -------------
+ *  It is a program showing the possibilities of using 
+ *  a prototype board prepared by TME for the purpose 
+ *  of creating a weather station
+ */ 
+#define PROJECT_NAME "WheatherStation"
+#define VERSION "v0.3.0"
+
+#include "includes.h"
+#include "graphics/WeatherIcons.h"
+////////CONSTANTS////////
+//In this section, all constants resulting from the prototype board design are set
+#define KEY_RIGHT 7
+#define KEY_LEFT 4
+#define KEY_UP 6
+#define KEY_DOWN 5
+#define KEY_CENTER 8
+#define POTENTIOMETER A1
+#define THERMOMETER A2
+#define LIGHT_SENSOR A3
+#define LED_SERIAL 12
+#define LED_COUNT 5
+
+////////MODIFIERS////////
+//In this section there are constants whose modification will affect the operation of our plate
+#define DELAY_BETWEEN_FRAMES 0.2
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define RESET_BTN 4
+
+////////DECLARATIONS////////
+//This section prepares variables that are responsible for the individual components on the board
+Adafruit_SSD1306 display(SCREEN_WIDTH,SCREEN_HEIGHT, &Wire, RESET_BTN);
+hd44780_I2Cexp lcd(0x20, I2Cexp_MCP23008, 7, 6, 5, 4, 3, 2, 1, HIGH);
+Adafruit_MCP23008 seg;
+Adafruit_NeoPixel ledStrip = Adafruit_NeoPixel(LED_COUNT, LED_SERIAL, NEO_GRB + NEO_KHZ800);
+
+boolean frame = true;
+unsigned long time = 0;
+int temp, light;
+
+enum TempScale{
+  CELSIUS,
+  FAHRENHEIT
+} tempScale;
+
+enum Animation{
+  CLOUD,
+  RAIN,
+  STORM,
+  SUN
+} animation;
+
+void setup(){
+  lcd.begin(16, 2);
+  intro(lcd);
+  
+  display.begin(0x2, 0x3C, false);
+  display.clearDisplay();
+  
+  seg.begin(0x4);
+  for(int i = 0; i < 8; i++)
+    seg.pinMode(i, OUTPUT);
+
+  ledStrip.begin();
+
+  pinMode(THERMOMETER, INPUT);
+  pinMode(LIGHT_SENSOR, INPUT);
+  pinMode(POTENTIOMETER, INPUT);
+
+  pinMode(KEY_RIGHT , INPUT);
+  pinMode(KEY_LEFT , INPUT);
+  pinMode(KEY_UP , INPUT);
+  pinMode(KEY_DOWN , INPUT);
+  pinMode(KEY_CENTER , INPUT);  
+}
+
+void loop(){
+  for(int led = 1; led < LED_COUNT; led++)
+    ledStrip.setPixelColor(led, 50, analogRead(POTENTIOMETER) / 1023.0 * 255, 100);
+  ledStrip.show();
+
+  if(digitalRead(KEY_CENTER)){
+    delay(500);
+    if(tempScale == CELSIUS){
+      tempScale = FAHRENHEIT;
+    }else{
+      tempScale = CELSIUS;
+    }
+  }
+  
+  if(tempScale == CELSIUS){
+    printOnSevenSeg('c');
+    temp = getTemperature(TempScale(CELSIUS));
+  }else{
+    printOnSevenSeg('f');
+    temp = getTemperature(TempScale(FAHRENHEIT));
+  }
+
+  light = analogRead(LIGHT_SENSOR) / 1023.0 * 100;  
+
+  animation = readArrowKey();
+
+  if(millis() > time){
+    printNextFrame();
     
-  // ''';
+    time = millis() + (1000 * DELAY_BETWEEN_FRAMES);
+    
+    lcd.setCursor(0, 0);
+    lcd.print("Temperature ");
+    lcd.print(temp);
+    lcd.print((char)223);
+    lcd.print(tempScale == CELSIUS ? "C " : "F ");
+    
+    lcd.setCursor(0, 1);
+    lcd.print("Light       ");
+    lcd.print(light);
+    lcd.print("% ");
+  }
+}
+
+void printOnSevenSeg(char sign){
+  uint8_t data = 0;
+  
+  switch(sign){
+    case '0':
+      data = B11111100;
+      break;
+    case '1':
+      data = B01100000;
+      break;
+    case '2':
+      data = B11011010;
+      break;
+    case '3':
+      data = B11110010;
+      break;
+    case '4':
+      data = B01100110;
+      break;
+    case '5':
+      data = B10110110;
+      break;
+    case '6':
+      data = B10111110;
+      break;
+    case '7':
+      data = B11100000;
+      break;
+    case '8':
+      data = B11111110;
+      break;
+    case '9':
+      data = B11110110;
+      break;
+    case 'c':
+      data = B10011100;
+      break;
+    case 'f':
+      data = B10001110;
+      break;
+  }
+  
+  for(int i = 0; i < 8; i++)
+    seg.digitalWrite(i, bitRead(data, 7 - i));  
+}
+
+void printNextFrame(){  
+  display.clearDisplay();
+
+  frame ? display.drawBitmap(32, 0, icons[animation * 2], 64, 64, 1) : display.drawBitmap(32, 0, icons[animation * 2 + 1], 64, 64, 1);
+
+  frame = !frame;  
+  display.display();
+}
+
+int getTemperature(TempScale tempScale){
+  if(tempScale == CELSIUS){
+    return analogRead(THERMOMETER) * 0.125 - 22.0;
+  }
+  if(tempScale == FAHRENHEIT){
+    return (analogRead(THERMOMETER) * 0.125 - 22.0) * 9/5 + 32;
+  }
+}
+
+Animation readArrowKey(){
+  if(digitalRead(KEY_RIGHT)){
+    return Animation(CLOUD);
+  }
+  if(digitalRead(KEY_LEFT)){
+    return Animation(RAIN);
+  }
+  if(digitalRead(KEY_UP)){
+    return Animation(STORM);
+  }
+  if(digitalRead(KEY_DOWN)){
+    return Animation(SUN);
+  }
+}
+  ''';
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
