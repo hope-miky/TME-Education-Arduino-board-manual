@@ -7,6 +7,7 @@ import 'package:tme_ard_v2/widgets/listOfWidgets/componentsView.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/libraries.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/newIntro.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/projects.dart';
+import 'package:tme_ard_v2/widgets/listOfWidgets/youtube.dart';
 
 class HomeList {
   HomeList({this.navigateScreen, this.imagePath = '', this.tittle});
@@ -37,6 +38,10 @@ class HomeList {
         imagePath: 'assets/images/projects.png',
         navigateScreen: ProjectsView(),
         tittle: "Projects"),
+     HomeList(
+        imagePath: 'assets/images/youtube.png',
+        navigateScreen: YoutubePage(),
+        tittle: "Youtube Channel"),
     HomeList(
         imagePath: 'assets/images/libraries.png',
         navigateScreen: Libraries(),

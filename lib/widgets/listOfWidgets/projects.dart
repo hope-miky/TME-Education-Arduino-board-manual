@@ -709,7 +709,6 @@ class _ProjectsViewState extends State<ProjectsView> {
       "link": "https://github.com/Tesfamichael1074/TME-EDU-ARD-2-examples/tree/master/WeatherStation"
     },
     
-
   ];
 
   String selected = "all";

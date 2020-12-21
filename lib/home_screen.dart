@@ -1,3 +1,5 @@
+import 'package:url_launcher/url_launcher.dart';
+
 import './app_theme.dart';
 import 'package:flutter/material.dart';
 import './models/homelist.dart';
@@ -61,7 +63,14 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                           children: [
                             Text("Visit our official page"),
                             FlatButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                var url = 'https://tmeeducation.com/en-ZA';
+                                  if (await canLaunch(url)) {
+                                    await launch(url, forceSafariVC: false);
+                                  } else {
+                                    throw 'Could not launch $url';
+                                  }
+                              },
                               child: Text(
                                 "TME Education",
                                 style: TextStyle(color: Colors.amber[900]),

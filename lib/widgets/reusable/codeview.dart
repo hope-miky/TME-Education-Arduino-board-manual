@@ -32,7 +32,21 @@ class _CodeViewState extends State<CodeView>
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(widget.project["tittle"]),
+        leading: IconButton(
+          icon: Icon(
+            Icons.keyboard_return,
+            color: Colors.teal,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Text(
+          widget.project["tittle"],
+          style: TextStyle(color: Colors.teal),
+        ),
         actions: [
           Switch(
               value: darktheme,
@@ -47,8 +61,8 @@ class _CodeViewState extends State<CodeView>
               })
         ],
         bottom: TabBar(
-          unselectedLabelColor: Colors.white,
-          labelColor: Colors.amber,
+          unselectedLabelColor: Colors.teal,
+          labelColor: Colors.amber[900],
           onTap: (idx) {
             setState(() {
               selectedindex = idx;
@@ -57,7 +71,10 @@ class _CodeViewState extends State<CodeView>
           tabs: [
             for (var element in widget.project["code"])
               Tab(
-                child: Text(element["name"], style: TextStyle(fontSize: 12),),
+                child: Text(
+                  element["name"],
+                  style: TextStyle(fontSize: 12),
+                ),
               ),
           ],
           controller: _tabController,
@@ -80,6 +97,11 @@ class _CodeViewState extends State<CodeView>
           ),
         ),
       ),
+
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.play_arrow),
+        mini: true,
+        onPressed: (){},),
     );
   }
 }
