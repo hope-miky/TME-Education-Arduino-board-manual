@@ -35,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal,
+      backgroundColor: Colors.white24,
       body: FutureBuilder<bool>(
         future: getData(),
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
@@ -49,20 +49,38 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   appBar(),
-                  SizedBox(height: 40,),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    child: Card(
+                      color: Colors.amber[50],
+                      elevation: 5,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text("Visit our official page"),
+                            FlatButton(
+                              onPressed: () {},
+                              child: Text(
+                                "TME Education",
+                                style: TextStyle(color: Colors.amber[900]),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                   Expanded(
                     child: Container(
                       padding: EdgeInsets.only(top: 50),
                       //margin:  EdgeInsets.symmetric(horizontal: 10),
-                      decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(topLeft: Radius.elliptical(100, 100)),
-                            border: Border.all(color: Colors.white, ),
-                            color: AppTheme.white
-                          ),
+                      decoration: BoxDecoration(color: Colors.white24),
                       child: FutureBuilder<bool>(
                         future: getData(),
-                        builder:
-                            (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                        builder: (BuildContext context,
+                            AsyncSnapshot<bool> snapshot) {
                           if (!snapshot.hasData) {
                             return const SizedBox();
                           } else {
@@ -76,7 +94,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                 (int index) {
                                   final int count = homeList.length;
                                   final Animation<double> animation =
-                                      Tween<double>(begin: 0.0, end: 1.0).animate(
+                                      Tween<double>(begin: 0.0, end: 1.0)
+                                          .animate(
                                     CurvedAnimation(
                                       parent: animationController,
                                       curve: Interval((1 / count) * index, 1.0,
@@ -88,14 +107,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                     children: <Widget>[
                                       HomeListView(
                                         animation: animation,
-                                        animationController: animationController,
+                                        animationController:
+                                            animationController,
                                         listData: homeList[index],
                                         callBack: () {
                                           Navigator.push<dynamic>(
                                             context,
                                             MaterialPageRoute<dynamic>(
                                               builder: (BuildContext context) =>
-                                                  homeList[index].navigateScreen,
+                                                  homeList[index]
+                                                      .navigateScreen,
                                             ),
                                           );
                                         },
@@ -117,7 +138,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       ),
                     ),
                   ),
-                  
                 ],
               ),
             );
@@ -148,7 +168,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   'Welcome',
                   style: TextStyle(
                     fontSize: 22,
-                    color: AppTheme.darkText,
+                    color: Colors.teal,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -160,7 +180,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             child: Container(
               width: AppBar().preferredSize.height - 8,
               height: AppBar().preferredSize.height - 8,
-              color: Colors.teal,
+              color: Colors.white24,
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
@@ -168,7 +188,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       BorderRadius.circular(AppBar().preferredSize.height),
                   child: Icon(
                     multiple ? Icons.dashboard : Icons.view_agenda,
-                    color: Colors.black,
+                    color: Colors.teal,
                   ),
                   onTap: () {
                     setState(() {
@@ -219,15 +239,16 @@ class HomeListView extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.only(bottom: 25),
                       child: Image.asset(
-                      listData.imagePath,
-                      fit: BoxFit.cover,
-                        ),
+                        listData.imagePath,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     Column(
                       children: <Widget>[
                         Spacer(),
-                        Text(listData.tittle.toString(), 
-                        style: AppTheme.caption,
+                        Text(
+                          listData.tittle.toString(),
+                          style: AppTheme.caption,
                         )
                       ],
                     ),

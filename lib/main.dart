@@ -43,7 +43,6 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Quicksand',
       ),
       home: NavigationHomeScreen(),
-      // home: Container(),
     );
   }
 }

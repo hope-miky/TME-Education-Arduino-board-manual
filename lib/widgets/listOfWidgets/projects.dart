@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tme_ard_v2/app_theme.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/projects_fetured.dart';
+import 'package:tme_ard_v2/widgets/reusable/codeview.dart';
+import 'package:tme_ard_v2/widgets/reusable/projectCodes.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProjectsView extends StatefulWidget {
@@ -11,10 +13,24 @@ class ProjectsView extends StatefulWidget {
 }
 
 class _ProjectsViewState extends State<ProjectsView> {
-  final List<Map<String, dynamic>> listofProjects = [
+   List<Map<String, dynamic>> listofProjects = [
     {
       "tittle": "7 Segment - Microphone",
       "fetured": false,
+      "code": [
+        {
+          "code": ProjectCodes.segment_microphone,
+          "name": "7 segment-microphone.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/seven-segment-957235_640.jpg",
       "by": "TME Education",
       "subtittle": "Showing the voice disturbance of a surrounging on 7-SEG display.",
@@ -24,15 +40,48 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Ask 8 ball",
       "fetured": false,
+      "code": [
+        {
+          "code": ProjectCodes.ask8ball,
+          "name": "Ask8Ball.ino"
+        },
+        {
+          "code": ProjectCodes.eightBall,
+          "name": "8ball.h"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/8-ball-3141731_640.jpg",
       "by": "TME Education",
       "subtittle": "Rolling 8 ball using push buttons and OLED display.",
       "category": ["btn", "all", "oled", "game"],
       "link": "https://github.com/tmeeducation/TME-EDU-ARD-2-examples/tree/master/Ask8Ball"
     },
+    
     {
       "tittle": "Button LED",
       "fetured": false,
+      "code": [
+        {
+          "code": ProjectCodes.button_led,
+          "name": "ask_8_ball.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/arduino-2713093_640.jpg",
       "by": "TME Education",
       "subtittle": "In this program, we will combine the skill of operating the led strip with the buttons located on the TME board",
@@ -42,6 +91,20 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Buzzer Potentiometer",
       "fetured": false,
+       "code": [
+        {
+          "code": ProjectCodes.buzzer_potentiometer,
+          "name": "ask_8_ball.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/electronics-697857_640.jpg",
       "by": "TME Education",
       "subtittle": "In this project you can control the frequency of the beeps. It's almost like a Geiger-Müller sensor.",
@@ -51,6 +114,24 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Buzzer voice",
       "fetured": false,
+      "code": [
+        {
+          "code": ProjectCodes.buzzer_voice,
+          "name": "BuzzerMega.ino"
+        },
+        {
+          "code": ProjectCodes.song,
+          "name": "song.h"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/speaker-3686639_640.jpg",
       "by": "TME Education",
       "subtittle": "Making a wonderfull music by playing around with frequency changes using a buzzer",
@@ -60,6 +141,20 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Buzzer Music",
       "fetured": true,
+      "code": [
+        {
+          "code": ProjectCodes.buzzer_music,
+          "name": "BuzzerMegaShow.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/piano-1655558_640.jpg",
       "by": "TME Education",
       "subtittle": "Making diffrent popular musics using a buzzer and some push buttons",
@@ -69,6 +164,20 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Demo LED",
       "fetured": false,
+      "code": [
+        {
+          "code": ProjectCodes.demo_led,
+          "name": "ask_8_ball.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/arduino-2713093_640.jpg",
       "by": "TME Education",
       "subtittle": "Controlling RGB LED and LED brightness using a potentiometer",
@@ -78,6 +187,32 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Dice",
       "fetured": false,
+      "code": [
+        {
+          "code": ProjectCodes.maindice,
+          "name": "Dice.ino"
+        },
+        {
+          "code": ProjectCodes.dice,
+          "name": "dice.h"
+        },
+        {
+          "code": ProjectCodes.dice2,
+          "name": "dice2.h"
+        },
+        {
+          "code": ProjectCodes.dice3,
+          "name": "dice3.h"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/cube-442544_640.jpg",
       "by": "TME Education",
       "subtittle": "Rolling dice game using some push buttons and OLED display.",
@@ -87,6 +222,20 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Duck jump",
       "fetured": true,
+      "code": [
+        {
+          "code": ProjectCodes.duck_jump,
+          "name": "DuckJump.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/geese-376436_640.jpg",
       "by": "TME Education",
       "subtittle": "Build a wonderful game - Moving a duck through a road",
@@ -96,6 +245,20 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Knob LED",
       "fetured": false,
+      "code": [
+        {
+          "code": ProjectCodes.knob_led,
+          "name": "DuckJump.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/arduino-631977_640.jpg",
       "by": "TME Education",
       "subtittle": "Changing and playing around with RGB led colors using a potentiometer",
@@ -105,6 +268,20 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Knob-Osciloscope",
       "fetured": false,
+      "code": [
+        {
+          "code": ProjectCodes.knob_osiloscope,
+          "name": "Knop_Oscilloscope.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/oscilloscope-2652341_640.jpg",
       "by": "TME Education",
       "subtittle": "Showing voltage level as an osciloscope",
@@ -114,24 +291,66 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "LCD Alphabet",
       "fetured": false,
+      "code": [
+        {
+          "code": ProjectCodes.lcd_alphabet,
+          "name": "LCD-ALPHABET.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/integrated-circuit-441294_640.jpg",
       "by": "TME Education",
       "subtittle": "Showing alphabet digits A-Z using an LCD",
       "category": ["all", "lcd", "begin"],
-      "link": "https://github.com/Tesfamichael1074/TME-EDU-ARD-2-examples/tree/master/LCD-ALPHABET"
+      "link": "https://github.com/tmeeducation/TME-EDU-ARD-2-examples/blob/master/LCD-ALPHABET"
     },
     {
       "tittle": "LCD Text",
       "fetured": false,
+      "code": [
+        {
+          "code": ProjectCodes.lcd_text,
+          "name": "LCD-TEXT.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/integrated-circuit-441294_640.jpg",
       "by": "TME Education",
       "subtittle": "Showing text and variable values using LCD display",
       "category": ["all", "lcd", "begin"],
-      "link": "https://github.com/Tesfamichael1074/TME-EDU-ARD-2-examples/tree/master/LCD-TEXT"
+      "link": "https://github.com/tmeeducation/TME-EDU-ARD-2-examples/tree/master/LCD-TEXT"
     },
     {
       "tittle": "LCD Watch",
       "fetured": false,
+      "code": [
+        {
+          "code": ProjectCodes.lcd_watch,
+          "name": "LCD-ALPHABET.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/integrated-circuit-441294_640.jpg",
       "by": "TME Education",
       "subtittle": "Building a real time clock using LCD display",
@@ -141,6 +360,20 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "LED blink",
       "fetured": false,
+      "code": [
+        {
+          "code": ProjectCodes.led_blink,
+          "name": "led blink.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/arduino-2713093_640.jpg",
       "by": "TME Education",
       "subtittle": "Blinking LED with a fixed time interval",
@@ -150,46 +383,116 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "LED Strip",
       "fetured": true,
+      "code": [
+        {
+          "code": ProjectCodes.led_strip,
+          "name": "LED-strip.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/arduino-631977_640.jpg",
       "by": "TME Education",
       "subtittle": "Displaying diffrent colors using addresable LEDs",
       "category": ["all", "led", "begin"],
-      "link": "https://github.com/Tesfamichael1074/TME-EDU-ARD-2-examples/tree/master/LED-STRIP"
+      "link": "https://github.com/tmeeducation/TME-EDU-ARD-2-examples/tree/master/LED-STRIP"
     },
 
     {
       "tittle": "Light sensor LCD",
       "fetured": false,
+      "code": [
+        {
+          "code": ProjectCodes.light_sensor,
+          "name": "LightSensor-LCD.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/light-bulb-503881_640.jpg",
       "by": "TME Education",
       "subtittle": "Working with Light sensors and LCD display",
       "category": ["all", "sensor", "lcd", "begin"],
-      "link": "https://github.com/Tesfamichael1074/TME-EDU-ARD-2-examples/tree/master/LightSensor-LCD"
+      "link": "https://github.com/tmeeducation/TME-EDU-ARD-2-examples/blob/master/LightSensor-LCD"
     },
 
     {
       "tittle": "Logo TME",
       "fetured": true,
+      "code": [
+        {
+          "code": ProjectCodes.logo_TME,
+          "name": "LogoTmeEdu.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/main_images/logo.png",
       "by": "TME Education",
       "subtittle": "Displaying TME Education LOGO using OLED display",
       "category": ["all", "oled", "advanced"],
-      "link": "https://github.com/Tesfamichael1074/TME-EDU-ARD-2-examples/tree/master/LogoTmeEdu"
+      "link": "https://github.com/tmeeducation/TME-EDU-ARD-2-examples/tree/master/LogoTmeEdu"
     },
 
     {
       "tittle": "Microphone speacker",
       "fetured": false,
+      "code": [
+        {
+          "code": ProjectCodes.mic_speacker,
+          "name": "MICROPHONE-SPEAKER.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/piano-1655558_640.jpg",
       "by": "TME Education",
       "subtittle": "Sensing sound signals and displaying it using LCD",
       "category": ["all", "sensor", "begin"],
-      "link": "https://github.com/Tesfamichael1074/TME-EDU-ARD-2-examples/tree/master/MICROPHONE-SPEAKER"
+      "link": "https://github.com/tmeeducation/TME-EDU-ARD-2-examples/tree/master/MICROPHONE-SPEAKER"
     },
 
     {
       "tittle": "OLED Graphics",
       "fetured": false,
+      "code": [
+        {
+          "code": ProjectCodes.mic_speacker,
+          "name": "MICROPHONE-SPEAKER.ino"
+        },
+        {
+          "code": ProjectCodes.intro,
+          "name": "intro.h"
+        },
+        {
+          "code": ProjectCodes.include,
+          "name": "include.h"
+        }
+      ],
       "imagepath": "assets/images/project/electric-948208_640.jpg",
       "by": "TME Education",
       "subtittle": "Working with diffrent shapes in OLED",
@@ -315,6 +618,13 @@ class _ProjectsViewState extends State<ProjectsView> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
+
+                        // RaisedButton(
+                        //   onPressed: (){
+                        //     Navigator.push(context, MaterialPageRoute(builder: (contex) => CodeView()));
+                        //   },
+                        // child: Text("Project"),
+                        // ),
 
                         Container(
                           margin: EdgeInsets.only(left: 15),
@@ -579,41 +889,54 @@ class _ProjectsViewState extends State<ProjectsView> {
                                                     ),
                                                 ),
 
-                                                Padding(
-                                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                                  child: Text( f["subtittle"],
-                                                        textAlign: TextAlign.left,
-                                                        style: AppTheme.subtitle.copyWith(
-                                                          color: Colors.brown,
-                                                        fontWeight: FontWeight.normal,
-                                                        fontSize: 13
+                                                SingleChildScrollView(
+                                                   child: Container(
+                                                    height: 80,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                                      child: Text( f["subtittle"],
+                                                            textAlign: TextAlign.left,
+                                                            style: AppTheme.subtitle.copyWith(
+                                                              color: Colors.brown,
+                                                            fontWeight: FontWeight.normal,
+                                                            fontSize: 13
+                                                          ),
                                                       ),
+                                                    ),
                                                   ),
                                                 ),
 
-                                                Spacer(),
+                                                // Spacer(),
 
                                                 Flexible(
-                                                  child: FlatButton(
-      
-                                                    onPressed: ()async {
-                                                          var url = '${f["link"]}';
-                                                          if (await canLaunch(url)) {
-                                                            await launch(url, forceSafariVC: false);
-                                                          } else {
-                                                            throw 'Could not launch $url';
-                                                          }
-                                                        },
-                                                    child: Text("View code", style: AppTheme.caption.copyWith(
-                                                      color: Colors.teal[700],
-                                                      fontSize: 14
-                                                    ),)
-                                                    ),
-                                                )
+                                               child: Row(
+                                                    children: [
+                                                      IconButton(
+                                                        onPressed: ()async {
+                                                              var url = '${f["link"]}';
+                                                              if (await canLaunch(url)) {
+                                                                await launch(url, forceSafariVC: false);
+                                                              } else {
+                                                                throw 'Could not launch $url';
+                                                              }
+                                                            },
+                                                        icon: Icon(Icons.integration_instructions_outlined , color: Colors.blue[400],)
+                                                        ),
 
+                                                      IconButton(
+                                                          onPressed: () {
+                                                                  Navigator.push(context, MaterialPageRoute(builder: (contex) => CodeView(project: f,)));
+                                                              },
+                                                          icon: Icon(Icons.settings_ethernet , color: Colors.amber[900],)
+                                                        ),
+
+                                                    ],
+                                                  ),
+                                                  
+                                                ),
+
+                                                // SizedBox(height: 20,)
                                                 
-
-
                                             ],
                                           ),
                                         ),
@@ -634,20 +957,6 @@ class _ProjectsViewState extends State<ProjectsView> {
 
                         ProjectsFetured(listofProjects: listofProjects,)
 
-                          // GridView.builder(
-                          //   gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                          //            crossAxisCount: 1
-                          //            ),
-                          //   itemBuilder: (BuildContext context, int index) {
-                          //       if(listofProjects[index]["category"])
-
-                          //   }
-                            
-                          //   ),
-                            
-                        
-                        
-                         
                       ],
                   ),
                 ),
