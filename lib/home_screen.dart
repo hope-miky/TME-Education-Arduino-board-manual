@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                           } else {
                             return GridView(
                               padding: const EdgeInsets.only(
-                                  top: 0, left: 12, right: 12),
+                                  top: 0, left: 0, right: 0),
                               physics: const BouncingScrollPhysics(),
                               scrollDirection: Axis.vertical,
                               children: List<Widget>.generate(
@@ -137,9 +137,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: multiple ? 2 : 1,
-                                mainAxisSpacing: 12.0,
-                                crossAxisSpacing: 12.0,
-                                childAspectRatio: 1.5,
+                                mainAxisSpacing: 8.0,
+                                crossAxisSpacing: 2.0,
+                                childAspectRatio: 2.0,
                               ),
                             );
                           }
@@ -184,30 +184,30 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8, right: 8),
-            child: Container(
-              width: AppBar().preferredSize.height - 8,
-              height: AppBar().preferredSize.height - 8,
-              color: Colors.white24,
-              child: Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  borderRadius:
-                      BorderRadius.circular(AppBar().preferredSize.height),
-                  child: Icon(
-                    multiple ? Icons.dashboard : Icons.view_agenda,
-                    color: Colors.teal,
-                  ),
-                  onTap: () {
-                    setState(() {
-                      multiple = !multiple;
-                    });
-                  },
-                ),
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 8, right: 8),
+          //   child: Container(
+          //     width: AppBar().preferredSize.height - 8,
+          //     height: AppBar().preferredSize.height - 8,
+          //     color: Colors.white24,
+          //     child: Material(
+          //       color: Colors.transparent,
+          //       child: InkWell(
+          //         borderRadius:
+          //             BorderRadius.circular(AppBar().preferredSize.height),
+          //         child: Icon(
+          //           multiple ? Icons.dashboard : Icons.view_agenda,
+          //           color: Colors.teal,
+          //         ),
+          //         onTap: () {
+          //           setState(() {
+          //             multiple = !multiple;
+          //           });
+          //         },
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
@@ -239,7 +239,7 @@ class HomeListView extends StatelessWidget {
             transform: Matrix4.translationValues(
                 0.0, 50 * (1.0 - animation.value), 0.0),
             child: AspectRatio(
-              aspectRatio: 1.5,
+              aspectRatio: 2.0,
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(4.0)),
                 child: Stack(
