@@ -16,6 +16,7 @@ class _YoutubePageState extends State<YoutubePage> {
         await ytApi.getChannelFromId("UCM-33fStj54y170Thw9M0kw");
     List<YtVideo> videoList =
         await channel.getPageOfVideos(numResults: 10, showDuration: true);
+    print(videoList[0].thumbnailDetails.default_.url);
     setState(() {
       videos = videoList;
     });
@@ -34,12 +35,27 @@ class _YoutubePageState extends State<YoutubePage> {
       appBar: AppBar(
         title: Text("Sample"),
       ),
-      body: Column(children: [
-        for(var element in videos)
-          ListTile(
-            title: Text(element.title),
+      body: videos != null
+          ? SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          for (var element in videos)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: ExpansionTile(
+                                leading: Image.network(element.thumbnailDetails.default_.url),
+                                title: Text(element.title),
+                                children: [
+    
+                                ],
+                                ),
+                            )
+                        ],
+              ),
           )
-      ],),
+          : Center(
+              child: CircularProgressIndicator(),
+            ),
     );
   }
 }
