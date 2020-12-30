@@ -1,7 +1,9 @@
+import 'package:awesome_loader/awesome_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_data_v3/youtube_data_v3.dart';
 import 'package:youtube_data_v3/youtube_channel.dart';
 import 'package:youtube_data_v3/youtube_video.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class YoutubePage extends StatefulWidget {
   @override
@@ -22,6 +24,29 @@ class _YoutubePageState extends State<YoutubePage> {
     });
   }
 
+  YoutubePlayerController _controller = YoutubePlayerController(
+    initialVideoId: 'iLnmTe5Q2Qw',
+    flags: YoutubePlayerFlags(
+        autoPlay: true,
+        mute: true,
+    ),
+);
+
+ PlayerState _playerState;
+  YoutubeMetaData _videoMetaData;
+  double _volume = 100;
+  bool _muted = false;
+  bool _isPlayerReady = false;
+
+void listener() {
+    if (_isPlayerReady && mounted && !_controller.value.isFullScreen) {
+      setState(() {
+        _playerState = _controller.value.playerState;
+        _videoMetaData = _controller.metadata;
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -30,32 +55,84 @@ class _YoutubePageState extends State<YoutubePage> {
   }
 
   @override
+  void deactivate() {
+    _controller.pause();
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return videos != null
+          ? Scaffold(
       appBar: AppBar(
-        title: Text("Sample"),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_outlined, color: Colors.teal,),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Text(
+          "Sample",
+          style: TextStyle(color: Colors.teal),
+        ),
+        backgroundColor: Colors.white12,
+        elevation: 0,
       ),
-      body: videos != null
-          ? SingleChildScrollView(
-                      child: Column(
+      body:  SingleChildScrollView(
+              child: Column(
+                children: [
+                  for (var element in videos)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: ExpansionTile(
+                        leading: Container(
+                            height: 50,
+                            width: 50,
+                            child: Image.network(
+                                element.thumbnailDetails.default_.url)),
+                        title: Text(element.title),
                         children: [
-                          for (var element in videos)
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: ExpansionTile(
-                                leading: Image.network(element.thumbnailDetails.default_.url),
-                                title: Text(element.title),
-                                children: [
-    
-                                ],
-                                ),
-                            )
+                          YoutubePlayer(
+                                        controller: _controller,
+                                        showVideoProgressIndicator: true,
+                                        progressIndicatorColor: Colors.amber,
+                                        progressColors: ProgressBarColors(
+                                          playedColor: Colors.amber,
+                                          handleColor: Colors.amberAccent
+                                        ),                               
+                                        onReady: (){
+                                          _controller.addListener(listener);
+                                        },                                     
+                                    ),
                         ],
+                      ),
+                    )
+                ],
               ),
-          )
-          : Center(
-              child: CircularProgressIndicator(),
+            )
+          
+    ) 
+    : Scaffold(
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              AwesomeLoader(
+              loaderType: AwesomeLoader.AwesomeLoader3,
+              color: Colors.teal,
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text("Loading depends on your Internet", textAlign: TextAlign.center,),
+            )
+            ],
+          ),
     );
   }
 }
