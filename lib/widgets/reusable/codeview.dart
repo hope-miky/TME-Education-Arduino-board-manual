@@ -65,7 +65,7 @@ class _CodeViewState extends State<CodeView>
     String response = "";
     try {
       final String result = await platform
-          .invokeMethod('uploadToBoard', {"filename": "Blink.uno.hex"});
+          .invokeMethod('uploadToBoard', {"filename": widget.project["hex"]});
       response = result;
       print("==================================");
       print(result);

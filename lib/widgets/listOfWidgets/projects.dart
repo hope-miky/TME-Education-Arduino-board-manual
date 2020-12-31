@@ -17,10 +17,11 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "7 Segment - Microphone",
       "fetured": false,
+      "hex": "7segment-microphone.ino.hex",
       "code": [
         {
           "code": ProjectCodes.segment_microphone,
-          "name": "7 segment-microphone.ino"
+          "name": "7segment-microphone.ino"
         },
         {
           "code": ProjectCodes.intro,
@@ -40,6 +41,7 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Ask 8 ball",
       "fetured": false,
+      "hex": "Ask8Ball.ino.hex",
       "code": [
         {
           "code": ProjectCodes.ask8ball,
@@ -68,10 +70,11 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Button LED",
       "fetured": false,
+      "hex": "BUTTON-LED.ino.hex",
       "code": [
         {
           "code": ProjectCodes.button_led,
-          "name": "ask_8_ball.ino"
+          "name": "BUTTON-LED.ino"
         },
         {
           "code": ProjectCodes.intro,
@@ -91,10 +94,11 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Buzzer Potentiometer",
       "fetured": false,
+      "hex": "Buzzer-Potentiometer.ino.hex",
        "code": [
         {
           "code": ProjectCodes.buzzer_potentiometer,
-          "name": "ask_8_ball.ino"
+          "name": "Buzzer-Potentiometer.ino"
         },
         {
           "code": ProjectCodes.intro,
@@ -114,6 +118,7 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Buzzer voice",
       "fetured": false,
+      "hex": "BuzzerMega.ino.standard.hex",
       "code": [
         {
           "code": ProjectCodes.buzzer_voice,
@@ -141,6 +146,7 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Buzzer Music",
       "fetured": true,
+      "hex": "BuzzerMegaShow.ino.standard.hex",
       "code": [
         {
           "code": ProjectCodes.buzzer_music,
@@ -164,6 +170,7 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Demo LED",
       "fetured": false,
+      "hex": "DemoLed.ino.standard.hex",
       "code": [
         {
           "code": ProjectCodes.demo_led,
@@ -187,6 +194,7 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Dice",
       "fetured": false,
+      "hex": "Dice.ino.standard.hex",
       "code": [
         {
           "code": ProjectCodes.maindice,
@@ -222,6 +230,7 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Duck jump",
       "fetured": true,
+      "hex": "DuckJump.ino.standard.hex",
       "code": [
         {
           "code": ProjectCodes.duck_jump,
@@ -245,6 +254,7 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Knob LED",
       "fetured": false,
+      "hex": "KNOB-LED.ino.standard.hex",
       "code": [
         {
           "code": ProjectCodes.knob_led,
@@ -268,6 +278,7 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Knob-Osciloscope",
       "fetured": false,
+      "hex": "Knop_Oscilloscope.ino.standard.hex",
       "code": [
         {
           "code": ProjectCodes.knob_osiloscope,
@@ -291,6 +302,7 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "LCD Alphabet",
       "fetured": false,
+      "hex": "LCD-ALPHABET.ino.standard.hex",
       "code": [
         {
           "code": ProjectCodes.lcd_alphabet,
@@ -314,6 +326,7 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "LCD Text",
       "fetured": false,
+      "hex": "LCD-TEXT.ino.standard.hex",
       "code": [
         {
           "code": ProjectCodes.lcd_text,
@@ -337,6 +350,7 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "LCD Watch",
       "fetured": false,
+      "hex": "LCD_Watch.ino.standard.hex",
       "code": [
         {
           "code": ProjectCodes.lcd_watch,
@@ -360,6 +374,7 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "LED blink",
       "fetured": false,
+      "hex": "Blink.uno.hex",
       "code": [
         {
           "code": ProjectCodes.led_blink,
@@ -382,6 +397,7 @@ class _ProjectsViewState extends State<ProjectsView> {
     },
     {
       "tittle": "LED Strip",
+      "hex": "LED-strip.ino.standard.hex",
       "fetured": true,
       "code": [
         {
@@ -406,6 +422,7 @@ class _ProjectsViewState extends State<ProjectsView> {
 
     {
       "tittle": "Light sensor LCD",
+      "hex": "LightSensor-LCD.ino.standard.hex",
       "fetured": false,
       "code": [
         {
@@ -430,6 +447,7 @@ class _ProjectsViewState extends State<ProjectsView> {
 
     {
       "tittle": "Logo TME",
+      "hex": "LogoTmeEdu.ino.standard.hex",
       "fetured": true,
       "code": [
         {
@@ -454,6 +472,7 @@ class _ProjectsViewState extends State<ProjectsView> {
 
     {
       "tittle": "Microphone speacker",
+      "hex": "MICROPHONE-SPEAKER.ino.standard.hex",
       "fetured": false,
       "code": [
         {
@@ -479,6 +498,7 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "OLED Graphics",
       "fetured": false,
+      "hex": "Oled-Graphics.ino.standard.hex",
       "code": [
         {
           "code": ProjectCodes.oled_graphics,
