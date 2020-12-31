@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:flutter_highlight/themes/androidstudio.dart';
 import 'package:flutter_highlight/themes/arduino-light.dart';
-import 'package:tme_ard_v2/widgets/reusable/projectCodes.dart';
 
 class CodeView extends StatefulWidget {
   final project;
@@ -17,12 +17,71 @@ class _CodeViewState extends State<CodeView>
   var theme = arduinoLightTheme;
   TabController _tabController;
   int selectedindex = 0;
+  String _responseFromNativeCode = null;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  static const platform = const MethodChannel('flutter.native/helper');
 
   @override
   void initState() {
     _tabController =
         TabController(length: widget.project["code"].length, vsync: this);
     super.initState();
+    platform.setMethodCallHandler(_platformCallHandler);
+  }
+
+  Future<dynamic> _platformCallHandler(MethodCall call) async {
+    switch (call.method) {
+      case 'callMe':
+        print('call callMe : arguments = ${call.arguments}');
+        setState(() {
+          _responseFromNativeCode = call.arguments.toString();
+        });
+        return Future.value('called from platform!');
+      //return Future.error('error message!!');
+      default:
+        print('Unknowm method ${call.method}');
+        throw MissingPluginException();
+        break;
+    }
+  }
+
+  Future<void> requestPermission() async {
+    String response = "";
+    try {
+      final String result = await platform.invokeMethod('requestPermission');
+      response = result;
+      showInSnackBar(
+          "You are successfully connected to: " + response, Colors.green);
+    } on PlatformException catch (e) {
+      response = "Failed to reqest permission.";
+      showInSnackBar("Failed to connected: ", Colors.red);
+    }
+    setState(() {
+      _responseFromNativeCode = response;
+    });
+  }
+
+  Future<void> uploadToBoard() async {
+    String response = "";
+    try {
+      final String result = await platform
+          .invokeMethod('uploadToBoard', {"filename": "Blink.uno.hex"});
+      response = result;
+      print("==================================");
+      print(result);
+    } on PlatformException catch (e) {
+      response = "Failed to reqest permission.";
+    }
+    setState(() {
+      _responseFromNativeCode = response;
+    });
+  }
+
+  void showInSnackBar(String value, Color color) {
+    _scaffoldKey.currentState.showSnackBar(new SnackBar(
+      content: new Text(value),
+      backgroundColor: color,
+    ));
   }
 
   @override
@@ -30,6 +89,7 @@ class _CodeViewState extends State<CodeView>
     Size screen = MediaQuery.of(context).size;
 
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
@@ -48,6 +108,10 @@ class _CodeViewState extends State<CodeView>
           style: TextStyle(color: Colors.teal),
         ),
         actions: [
+          RaisedButton(
+            child: Text("Check permission"),
+            onPressed: requestPermission,
+          ),
           Switch(
               value: darktheme,
               activeColor: Colors.black54,
@@ -84,24 +148,28 @@ class _CodeViewState extends State<CodeView>
         bottomOpacity: 1,
       ),
       body: SingleChildScrollView(
-        child: Container(
-          width: screen.width,
-          child: HighlightView(
-            widget.project["code"][selectedindex]["code"],
-            language: 'arduino',
-            theme: theme,
-            padding: EdgeInsets.all(12),
-            textStyle: TextStyle(
-              fontSize: 12,
+        child: Column(
+          children: [
+            Container(
+              width: screen.width,
+              child: HighlightView(
+                widget.project["code"][selectedindex]["code"],
+                language: 'arduino',
+                theme: theme,
+                padding: EdgeInsets.all(12),
+                textStyle: TextStyle(
+                  fontSize: 12,
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       ),
-
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.play_arrow),
         mini: true,
-        onPressed: (){},),
+        onPressed: uploadToBoard,
+      ),
     );
   }
 }
