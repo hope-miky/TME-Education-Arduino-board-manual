@@ -105,7 +105,6 @@ public class MainActivity extends FlutterActivity {
                 context.sendBroadcast(it);
 
             } else if (intent.getAction().equals(UsbManager.ACTION_USB_DEVICE_DETACHED)) {
-                // Usb device was disconnected. send an intent to the Main Activity
                 Intent it = new Intent(UsbSerialManager.ACTION_USB_DISCONNECTED);
                 context.sendBroadcast(it);
 
@@ -122,31 +121,18 @@ public class MainActivity extends FlutterActivity {
     }
 
 
-//    private TextView display;
-//    private TextView portSelect;
     private String deviceKeyName;
     private String filename;
-//    private Button requestButton;
 
 
     public void usbConnectChange(UsbConnectState state) {
         methodChannel.invokeMethod("callMe", state.toString());
-//        if (state == UsbConnectState.DISCONNECTED) {
-//            if (requestButton != null) requestButton.setVisibility(View.INVISIBLE);
-////            if (fab != null) fab.hide();
-//        } else if (state == UsbConnectState.CONNECT) {
-//            if (requestButton != null) requestButton.setVisibility(View.VISIBLE);
-//
-//        }
-
     }
 
 
     public void usbPermissionGranted(String usbKey) {
         Toast.makeText(this, "UsbPermissionGranted:" + usbKey, Toast.LENGTH_SHORT).show();
-//        portSelect.setText(usbKey);
         deviceKeyName = usbKey;
-//        if (fab != null) fab.show();
     }
 
     @Override
@@ -179,35 +165,6 @@ public class MainActivity extends FlutterActivity {
         GeneratedPluginRegistrant.registerWith(this.getFlutterEngine());
         usbSerialManager = new UsbSerialManager(this);
         setUsbFilter();
-
-
-
-//        portSelect = (TextView) findViewById(R.id.textViewTitle);
-//        display = (TextView) findViewById(R.id.textView1);
-//        fab = findViewById(R.id.fab);
-//        requestButton = (Button) findViewById(R.id.buttonRequest);
-                                                                                                                     // On click Request
-//        requestButton.setOnClickListener(view -> {
-//            Map.Entry<String, UsbDevice> entry = usbSerialManager.getUsbDeviceList().entrySet().iterator().next();
-//            String keySelect = entry.getKey();
-//            boolean hasPem = checkDevicePermission(keySelect);
-//            if (hasPem) {
-////                portSelect.setText(keySelect);
-//                deviceKeyName = keySelect;
-////                if (fab != null) fab.show();
-//            } else {
-//                requestDevicePermission(keySelect);
-//            }
-//        });
-
-
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                    uploadHex();
-//                new Thread(new UploadRunnable()).start();
-//            }
-//        });
     }
 
 
@@ -258,10 +215,8 @@ public class MainActivity extends FlutterActivity {
             String keySelect = entry.getKey();
             boolean hasPem = checkDevicePermission(keySelect);
             if (hasPem) {
-//                portSelect.setText(keySelect);
                 deviceKeyName = keySelect;
                 return keySelect;
-//                if (fab != null) fab.show();
             } else {
                 requestDevicePermission(keySelect);
             }
@@ -305,31 +260,26 @@ public class MainActivity extends FlutterActivity {
             @Override
             public void Error(String message, Exception exception) {
                 Log.e(TAG, "Error:" + message);
-//                logUI("Error:" + message);
             }
 
             @Override
             public void Warn(String message) {
                 Log.w(TAG, "Warn:" + message);
-//                logUI("Warn:" + message);
             }
 
             @Override
             public void Info(String message) {
                 Log.i(TAG, "Info:" + message);
-//                logUI("Info:" + message);
             }
 
             @Override
             public void Debug(String message) {
                 Log.d(TAG, "Debug:" + message);
-//                logUI("Debug:" + message);
             }
 
             @Override
             public void Trace(String message) {
                 Log.d(TAG, "Trace:" + message);
-//                logUI("Trace:" + message);
             }
         };
 
@@ -339,7 +289,6 @@ public class MainActivity extends FlutterActivity {
                 String result = String.format("Upload progress: %1$,3.2f%%", value * 100);
                 Log.d(TAG, result);
                 methodChannel.invokeMethod("callMe", result);
-//                logUI("Procees:" + result);
 
             }
         };
@@ -349,9 +298,7 @@ public class MainActivity extends FlutterActivity {
             Reader reader = new InputStreamReader(file);
             Collection<String> hexFileContents = new LineReader(reader).readLines();
             ArduinoSketchUploader<SerialPortStreamImpl> uploader = new ArduinoSketchUploader<SerialPortStreamImpl>(this, SerialPortStreamImpl.class, null, logger, progress);
-//            ArduinoSketchUploader<SerialPortStreamImpl> uploader = new ArduinoSketchUploader<SerialPortStreamImpl>(this, null, logger, progress) {
-//                //Ananymous
-//            };
+
             uploader.UploadSketch(hexFileContents, customArduino, deviceKeyName);
         } catch (ArduinoUploaderException ex) {
             ex.printStackTrace();
@@ -361,39 +308,11 @@ public class MainActivity extends FlutterActivity {
 
     }
 
-//    private void logUI(String text) {
-//        runOnUiThread(() -> display.append(text + "\n"));
-//    }
-
     private class UploadRunnable implements Runnable {
         @Override
         public void run() {
             uploadHex();
         }
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
-
-
-
 
 }
