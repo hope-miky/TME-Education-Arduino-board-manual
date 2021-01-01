@@ -33,6 +33,8 @@ dependencies:
   youtube_data_v3: ^0.0.1+1
   youtube_player_flutter: ^7.0.0+7
   awesome_loader: ^0.0.3
+  flutter_slidable:
+  font_awesome_flutter: ^8.11.0
 
 
 dev_dependencies:
@@ -58,6 +60,7 @@ flutter:
    - assets/images/comp/
    - assets/images/project/
    - assets/images/codding/
+   - assets/images/ambassadors/
   #  - images/a_dot_ham.jpeg
   
   fonts:

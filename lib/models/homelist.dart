@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:tme_ard_v2/help_screen.dart';
 import 'package:tme_ard_v2/widgets/Planning/PlannedtripsList.dart';
-import 'package:tme_ard_v2/widgets/listOfWidgets/IntroToTME.dart';
+import 'package:tme_ard_v2/widgets/listOfWidgets/ambassadors/ambassadorsList.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/coddingIntro.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/componentsView.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/libraries.dart';
@@ -42,6 +42,10 @@ class HomeList {
         imagePath: 'assets/images/youtube.png',
         navigateScreen: YoutubePage(),
         tittle: "Youtube Channel"),
+    HomeList(
+        imagePath: 'assets/images/ambassador_dashboard.png',
+        navigateScreen: AmbassadorsListView(),
+        tittle: "Ambassadors"),
     HomeList(
         imagePath: 'assets/images/libraries.png',
         navigateScreen: Libraries(),

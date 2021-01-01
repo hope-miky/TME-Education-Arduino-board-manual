@@ -248,9 +248,18 @@ class _YoutubePageState extends State<YoutubePage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Loading depends on your Internet",
-                    textAlign: TextAlign.center,
+                  child: Column(
+                    children: [
+                      Text(
+                        "Fetching YouTube Videos...",
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        "Loading depends on your Internet :)",
+                        textAlign: TextAlign.center,
+                        style: AppTheme.caption,
+                      ),
+                    ],
                   ),
                 )
               ],
