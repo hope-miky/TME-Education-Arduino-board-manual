@@ -14,6 +14,7 @@ class CodeView extends StatefulWidget {
 class _CodeViewState extends State<CodeView>
     with SingleTickerProviderStateMixin {
   bool darktheme = false;
+  bool checked = false;
   var theme = arduinoLightTheme;
   TabController _tabController;
   int selectedindex = 0;
@@ -52,6 +53,9 @@ class _CodeViewState extends State<CodeView>
       response = result;
       showInSnackBar(
           "You are successfully connected to: " + response, Colors.green);
+      setState(() {
+        checked = true;
+      });
     } on PlatformException catch (e) {
       response = "Failed to reqest permission.";
       showInSnackBar("Failed to connected: ", Colors.red);
@@ -62,14 +66,17 @@ class _CodeViewState extends State<CodeView>
   }
 
   Future<void> uploadToBoard() async {
+    showInSnackBar(
+          "Uploading to board...... ", Colors.green);
     String response = "";
     try {
       final String result = await platform
           .invokeMethod('uploadToBoard', {"filename": widget.project["hex"]});
       response = result;
-    
     } on PlatformException catch (e) {
-      response = "Failed to reqest permission.";
+      response = "Failed to to upload: ";
+      showInSnackBar(
+          response, Colors.red);
     }
     setState(() {
       _responseFromNativeCode = response;
@@ -107,8 +114,22 @@ class _CodeViewState extends State<CodeView>
           style: TextStyle(color: Colors.teal),
         ),
         actions: [
-          RaisedButton(
-            child: Text("Check permission"),
+          FlatButton.icon(
+            icon: checked
+                ? Icon(
+                    Icons.check_circle_outline_outlined,
+                    color: Colors.green,
+                  )
+                : Icon(
+                    Icons.hardware,
+                    color: Colors.red,
+                  ),
+            label: checked
+                ? Text(
+                    "Connected!",
+                    style: TextStyle(color: Colors.green),
+                  )
+                : Text("Check permission", style: TextStyle(color: Colors.red)),
             onPressed: requestPermission,
           ),
           Switch(
@@ -149,6 +170,7 @@ class _CodeViewState extends State<CodeView>
       body: SingleChildScrollView(
         child: Column(
           children: [
+            Text(_responseFromNativeCode),
             Container(
               width: screen.width,
               child: HighlightView(
@@ -167,7 +189,7 @@ class _CodeViewState extends State<CodeView>
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.play_arrow),
         mini: true,
-        onPressed: uploadToBoard,
+        onPressed: checked ? uploadToBoard : null,
       ),
     );
   }
