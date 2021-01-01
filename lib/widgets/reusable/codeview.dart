@@ -67,8 +67,7 @@ class _CodeViewState extends State<CodeView>
       final String result = await platform
           .invokeMethod('uploadToBoard', {"filename": widget.project["hex"]});
       response = result;
-      print("==================================");
-      print(result);
+    
     } on PlatformException catch (e) {
       response = "Failed to reqest permission.";
     }

@@ -523,6 +523,7 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Paint",
       "fetured": false,
+      "hex": "Paint.ino.standard.hex",
       "code": [
         {
           "code": ProjectCodes.paint,
@@ -547,6 +548,7 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Pong game",
       "fetured": true,
+      "hex": "Pong_Game.ino.standard.hex",
       "code": [
         {
           "code": ProjectCodes.pong_game,
@@ -571,6 +573,7 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "RGB Show",
       "fetured": false,
+      "hex": "RGB_show.ino.standard.hex",
       "code": [
         {
           "code": ProjectCodes.rgb_show,
@@ -595,6 +598,7 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Random number",
       "fetured": false,
+      "hex": "RandomNumbers.ino.standard.hex",
       "code": [
         {
           "code": ProjectCodes.rand_num,
@@ -619,6 +623,7 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Snake game",
       "fetured": true,
+      "hex": "Snake.ino.standard.hex",
       "code": [
         {
           "code": ProjectCodes.snake_game,
@@ -643,6 +648,7 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "Thermometer LCD",
       "fetured": false,
+      "hex": "THERMOMETER-LCD.ino.standard.hex",
       "code": [
         {
           "code": ProjectCodes.thermometer_lcd,
@@ -667,6 +673,7 @@ class _ProjectsViewState extends State<ProjectsView> {
     {
       "tittle": "TME Arduino Demo",
       "fetured": true,
+      "hex": "TME-EDU-ARD-2-demo.ino.standard.hex",
       "code": [
         {
           "code": ProjectCodes.tme_demo,
@@ -682,32 +689,9 @@ class _ProjectsViewState extends State<ProjectsView> {
     },
 
     {
-      "tittle": "Timer",
-      "fetured": true,
-      "code": [
-        {
-          "code": ProjectCodes.timer,
-          "name": "Timer.ino"
-        },
-        {
-          "code": ProjectCodes.intro,
-          "name": "intro.h"
-        },
-        {
-          "code": ProjectCodes.include,
-          "name": "include.h"
-        }
-      ],
-      "imagepath": "assets/images/project/clock-691143_640.jpg",
-      "by": "TME Education",
-      "subtittle": "Building a timer using OLED display",
-      "category": ["all", "oled", "btn", "advanced"],
-      "link": "https://github.com/Tesfamichael1074/TME-EDU-ARD-2-examples/tree/master/Timer"
-    },
-
-    {
       "tittle": "Weather station",
       "fetured": true,
+      "hex": "WeatherStation.ino.standard.hex",
        "code": [
         {
           "code": ProjectCodes.weather_station,
