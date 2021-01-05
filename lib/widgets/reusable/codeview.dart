@@ -170,7 +170,7 @@ class _CodeViewState extends State<CodeView>
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Text(_responseFromNativeCode),
+            _responseFromNativeCode != null ? Text(_responseFromNativeCode):Text("waiting...."),
             Container(
               width: screen.width,
               child: HighlightView(
