@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       navigatorKey: Get.key,
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'TME Education Arduino board v2 manual',
       theme: ThemeData(
         primarySwatch: Colors.teal,
         textTheme: ThemeData.light().textTheme.copyWith(

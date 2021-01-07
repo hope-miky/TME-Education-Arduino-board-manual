@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tme_ard_v2/widgets/reusable/info.dart';
 
 
 class CoddingIntro extends StatelessWidget {
@@ -13,6 +14,9 @@ class CoddingIntro extends StatelessWidget {
         iconTheme: IconThemeData(
           color: Colors.teal
         ),
+        actions: [
+            InfoIcon(color: Colors.teal,)
+          ]
       ),
       backgroundColor: Colors.teal[50],
           body: SingleChildScrollView(

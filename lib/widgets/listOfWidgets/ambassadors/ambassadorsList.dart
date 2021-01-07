@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tme_ard_v2/widgets/reusable/info.dart';
 
 import 'ambassador.dart';
 
@@ -214,6 +215,9 @@ class _AmbassadorsListViewState extends State<AmbassadorsListView> {
       appBar: AppBar(
         backgroundColor: Colors.white12,
         elevation: 0,
+        actions: [
+            InfoIcon(color: Colors.teal,)
+          ],
         leading: IconButton(
             icon: Icon(Icons.keyboard_return_rounded, color: Colors.teal,),
             onPressed: () {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tme_ard_v2/app_theme.dart';
+import 'package:tme_ard_v2/widgets/reusable/info.dart';
 import 'dart:async';
 
 import 'package:url_launcher/url_launcher.dart';
@@ -14,6 +15,9 @@ class IntroToTME extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppTheme.chipBackground,
         elevation: 0,
+        actions: [
+            InfoIcon(color: Colors.teal,)
+          ],
         iconTheme: IconThemeData(color: Colors.teal),
       ),
       body: SingleChildScrollView(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tme_ard_v2/app_theme.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/componentsTextView.dart';
+import 'package:tme_ard_v2/widgets/reusable/info.dart';
 
 class CardScrollView extends StatefulWidget {
   CardScrollView({Key key}) : super(key: key);
@@ -58,6 +59,9 @@ class _CardScrollViewState extends State<CardScrollView> {
             Spacer(),
           ],
         ),
+        actions: [
+            InfoIcon(color: Colors.white,)
+          ]
       ),
           body: SingleChildScrollView(
             child: Column(
