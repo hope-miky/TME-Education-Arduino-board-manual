@@ -10,7 +10,7 @@ class InfoIcon extends StatelessWidget {
       onPressed: () {
         showAboutDialog(
             context: context,
-            applicationName: "TME Education Arduino board manual",
+            applicationName: "TME ARD V2",
             applicationVersion: "2.0",
             applicationIcon: Container(
                 width: 50,
