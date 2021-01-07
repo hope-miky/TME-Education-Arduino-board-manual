@@ -88,6 +88,7 @@ class _PlannedTripsListState extends State<PlannedTripsList> {
       appBar: AppBar(
         backgroundColor: Colors.white24,
         elevation: 0,
+        leading: Container(),
         title: Text(
           "Planned List",
           style: TextStyle(color: Colors.teal),

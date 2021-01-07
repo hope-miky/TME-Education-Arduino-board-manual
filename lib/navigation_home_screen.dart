@@ -1,3 +1,4 @@
+import 'package:tme_ard_v2/widgets/Planning/PlannedtripsList.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/IntroToTME.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/coddingIntro.dart';
 import 'package:tme_ard_v2/widgets/listOfWidgets/componentsView.dart';
@@ -10,6 +11,8 @@ import './custom_drawer/home_drawer.dart';
 import './help_screen.dart';
 import './home_screen.dart';
 import 'package:flutter/material.dart';
+
+import 'widgets/listOfWidgets/ambassadors/ambassadorsList.dart';
 
 class NavigationHomeScreen extends StatefulWidget {
   @override
@@ -85,6 +88,16 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
       else if (drawerIndex == DrawerIndex.Components) {
         setState(() {
           screenView = CardScrollView();
+        });
+      }
+      else if (drawerIndex == DrawerIndex.Ambassadors) {
+        setState(() {
+          screenView = AmbassadorsListView();
+        });
+      }
+      else if (drawerIndex == DrawerIndex.PlannedTrips) {
+        setState(() {
+          screenView = PlannedTripsList();
         });
       }
         else {

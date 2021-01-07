@@ -216,13 +216,13 @@ class _AmbassadorsListViewState extends State<AmbassadorsListView> {
         backgroundColor: Colors.white12,
         elevation: 0,
         actions: [
-            InfoIcon(color: Colors.teal,)
-          ],
-        leading: IconButton(
+            InfoIcon(color: Colors.teal,),
+            IconButton(
             icon: Icon(Icons.keyboard_return_rounded, color: Colors.teal,),
             onPressed: () {
               Navigator.pop(context);
-            }),
+            })
+          ],
       ),
       body: Container(
         height: screen.height,

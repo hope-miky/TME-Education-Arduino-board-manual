@@ -42,6 +42,18 @@ class _HomeDrawerState extends State<HomeDrawer> {
       ),
 
       DrawerList(
+        index: DrawerIndex.Ambassadors,
+        labelName: 'Ambassadors',
+        icon: Icon(Icons.supervisor_account_outlined),
+      ),
+
+      DrawerList(
+        index: DrawerIndex.PlannedTrips,
+        labelName: 'Planned Trips',
+        icon: Icon(Icons.train_sharp),
+      ),
+
+      DrawerList(
         index: DrawerIndex.Components,
         labelName: 'Components',
         icon: Icon(Icons.list),
@@ -71,16 +83,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
         isAssetsImage: true,
         imageName: 'assets/images/supportIcon.png',
       ),
-      // DrawerList(
-      //   index: DrawerIndex.FeedBack,
-      //   labelName: 'FeedBack',
-      //   icon: Icon(Icons.help),
-      // ),
-      // DrawerList(
-      //   index: DrawerIndex.Invite,
-      //   labelName: 'Invite Friend',
-      //   icon: Icon(Icons.group),
-      // ),
+      
+      
       // DrawerList(
       //   index: DrawerIndex.Share,
       //   labelName: 'Rate the app',
@@ -233,17 +237,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   Container(
                     width: 6.0,
                     height: 46.0,
-                    // decoration: BoxDecoration(
-                    //   color: widget.screenIndex == listData.index
-                    //       ? Colors.blue
-                    //       : Colors.transparent,
-                    //   borderRadius: new BorderRadius.only(
-                    //     topLeft: Radius.circular(0),
-                    //     topRight: Radius.circular(16),
-                    //     bottomLeft: Radius.circular(0),
-                    //     bottomRight: Radius.circular(16),
-                    //   ),
-                    // ),
+                    
                   ),
                   const Padding(
                     padding: EdgeInsets.all(4.0),
@@ -326,7 +320,7 @@ enum DrawerIndex {
   HOME,
   FeedBack,
   Help,
-  Share,
+  Ambassadors,
   About,
   Invite,
   Testing,
@@ -335,6 +329,7 @@ enum DrawerIndex {
   Codding,
   Projects,
   Libraries,
+  PlannedTrips
 }
 
 class DrawerList {
