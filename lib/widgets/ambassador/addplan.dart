@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:country_picker/country_picker.dart';
 
@@ -25,9 +26,12 @@ class _AddPlanState extends State<AddPlan> {
 
   CollectionReference _plannedtrips =
       FirebaseFirestore.instance.collection('plannedtrip');
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
 
   Future<void> addPlan() {
     return _plannedtrips.add({
+      'by': FirebaseAuth.instance.currentUser.email.toString(),
       'tittle': _tittle.text,
       'location': _location.text,
       'description': _description.text,
@@ -35,8 +39,15 @@ class _AddPlanState extends State<AddPlan> {
       'to': to.toString().split(" ")[0],
       'country': country.countryCode + ": " + country.name
     }).then((value) {
-      Scaffold.of(context).showSnackBar(snackBar);
-    }).catchError((error) => Scaffold.of(context).showSnackBar(errsnackBar));
+      showInSnackBar("Success in adding trip", Colors.green);
+    }).catchError((error) =>showInSnackBar("Error adding trip", Colors.red));
+  }
+
+  void showInSnackBar(String value, Color color) {
+    _scaffoldKey.currentState.showSnackBar(new SnackBar(
+      content: new Text(value),
+      backgroundColor: color,
+    ));
   }
 
   @override
@@ -44,6 +55,7 @@ class _AddPlanState extends State<AddPlan> {
     return Container(
       height: widget.screen.height * 0.7,
       child: Scaffold(
+        key: _scaffoldKey,
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomPadding: false,
         body: Container(

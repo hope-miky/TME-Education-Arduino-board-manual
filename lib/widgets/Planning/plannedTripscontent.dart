@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class PlannedListContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Size screen = MediaQuery.of(context).size;
+
     CollectionReference users =
         FirebaseFirestore.instance.collection('plannedtrip');
 
@@ -18,21 +20,24 @@ class PlannedListContent extends StatelessWidget {
           return Text("Loading");
         }
 
-        return new ListView(
-          children: snapshot.data.docs.map((DocumentSnapshot document) {
-            return new ListTile(
-              title: new Text(document.data()['tittle']),
-              subtitle: new Text("On " + document.data()['from'].toString()),
-              leading: Container(
-                padding: EdgeInsets.all(8),
-                child: Icon(Icons.event),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.teal)),
-              ),
-              trailing: Text(document.data()['location']),
-            );
-          }).toList(),
+        return Container(
+          height: screen.height * 0.8,
+          child: new ListView(
+            children: snapshot.data.docs.map((DocumentSnapshot document) {
+              return new ListTile(
+                title: new Text(document.data()['tittle']),
+                subtitle: new Text("On " + document.data()['from'].toString()),
+                leading: Container(
+                  padding: EdgeInsets.all(8),
+                  child: Icon(Icons.event),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.teal)),
+                ),
+                trailing: Text(document.data()['location']),
+              );
+            }).toList(),
+          ),
         );
       },
     );

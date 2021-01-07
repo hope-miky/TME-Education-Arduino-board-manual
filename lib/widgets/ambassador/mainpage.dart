@@ -70,12 +70,6 @@ class _AmbassadorDashboardState extends State<AmbassadorDashboard> {
               setState(() => index = idx);
             },
             children: <Widget>[
-              Container(
-                color: Colors.blueGrey,
-              ),
-              Container(
-                color: Colors.red,
-              ),
               RegisteredUsersList(),
               AdminPlannedList(),
               AmbassadorProfile()
@@ -97,15 +91,7 @@ class _AmbassadorDashboardState extends State<AmbassadorDashboard> {
                 duration: Duration(milliseconds: 300), curve: Curves.ease);
           }),
           items: [
-            BottomNavyBarItem(
-              icon: Icon(Icons.apps),
-              title: Text('Home'),
-              activeColor: Colors.red,
-            ),
-            BottomNavyBarItem(
-                icon: Icon(Icons.message),
-                title: Text('Messages'),
-                activeColor: Colors.pink),
+           
             BottomNavyBarItem(
                 icon: Icon(Icons.people),
                 title: Text('Students'),
