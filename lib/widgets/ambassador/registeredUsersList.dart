@@ -14,6 +14,8 @@ class _RegisteredUsersListState extends State<RegisteredUsersList> {
           isEqualTo: FirebaseAuth.instance.currentUser.email.toString())
       .snapshots(includeMetadataChanges: true);
 
+
+
   @override
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;

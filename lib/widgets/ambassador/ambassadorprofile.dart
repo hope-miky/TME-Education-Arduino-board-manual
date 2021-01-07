@@ -38,14 +38,18 @@ class _AmbassadorProfileState extends State<AmbassadorProfile> {
           }
 
           return SingleChildScrollView(
-            child: Column(
-              children: [
-                Text(snapshot.data["fullname"]),
-                Text(snapshot.data["phonenumber"]),
-                Text(snapshot.data["email"]),
-                Text(snapshot.data["facebook"]),
-                Text(snapshot.data["groupfb"]),
-              ],
+            child: Container(
+              height: screen.height,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(snapshot.data["fullname"]),
+                  Text(snapshot.data["phonenumber"]),
+                  Text(snapshot.data["email"]),
+                  Text(snapshot.data["facebook"]),
+                  Text(snapshot.data["groupfb"]),
+                ],
+              ),
             ),
           );
         },

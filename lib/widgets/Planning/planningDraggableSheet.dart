@@ -29,6 +29,7 @@ class _PlanningDraggableSheetState extends State<PlanningDraggableSheet> {
 
   Future register() async {
     _plannedtrips.add({
+      'for': country.toLowerCase() + "@tme.com",
       'fullname': _fullnametextcontroller.text,
       'age': _agetextcontroller.text,
       'phonenumber': _phonenumbertextcontroller.text,
@@ -125,7 +126,26 @@ class _PlanningDraggableSheetState extends State<PlanningDraggableSheet> {
                 DropdownButton(
                     value: country,
                     hint: Text("Country"),
-                    items: ["Ethiopia", "India", "Camerron", "Ghana", "Nigeria"]
+                    items: [
+                    "India", 
+                    "Cameroon", 
+                    "Ghana", 
+                    "Tanzania",
+                    "Rwanda",
+                    "Zambia",
+                    "Tunisia",
+                    "Eswatini",
+                    "Mauritania",
+                    "Mozambique",
+                    "Madagascar",
+                    "Nigeria",
+                    "South Africa",
+                    "Uganda",
+                    "Malawi",
+                    "Kenya",
+                    "Ethiopia",
+                    "Egypt"
+                    ]
                         .map((e) => DropdownMenuItem(
                               child: Text(e),
                               value: e,

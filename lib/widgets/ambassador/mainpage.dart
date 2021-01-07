@@ -1,6 +1,7 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:tme_ard_v2/app_theme.dart';
+import 'package:tme_ard_v2/home_screen.dart';
 import 'package:tme_ard_v2/widgets/ambassador/adminPlannedLists.dart';
 import 'package:tme_ard_v2/widgets/ambassador/registeredUsersList.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -62,6 +63,24 @@ class _AmbassadorDashboardState extends State<AmbassadorDashboard> {
           ),
           elevation: 0,
           backgroundColor: Colors.white10,
+          actions: [
+            FlatButton.icon(
+                icon: Icon(
+                  Icons.logout,
+                  color: Colors.teal,
+                ),
+                label: Text(
+                  "Log out",
+                  style: TextStyle(
+                    color: Colors.teal,
+                  ),
+                ),
+                onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
+                  // MyHomePage
+                  Navigator.pop(context);
+                })
+          ],
         ),
         body: SizedBox.expand(
           child: PageView(
@@ -91,7 +110,6 @@ class _AmbassadorDashboardState extends State<AmbassadorDashboard> {
                 duration: Duration(milliseconds: 300), curve: Curves.ease);
           }),
           items: [
-           
             BottomNavyBarItem(
                 icon: Icon(Icons.people),
                 title: Text('Students'),
